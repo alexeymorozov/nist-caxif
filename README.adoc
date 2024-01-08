@@ -1,0 +1,6 @@
+= Custom config
+
+[source,sh]
+----
+metanorma -t generic d.adoc
+----
