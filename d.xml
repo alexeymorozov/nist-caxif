@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generic-standard xmlns="https://www.metanorma.org/ns/generic" type="semantic" version="2.5.5" schema-version="v1.2.9">
+<bibdata type="standard">
+<title language="en" format="text/plain">vCard Format Specification</title>
+<uri>http://www.viagenie.ca</uri><docidentifier type="NIST CAXIF">NIST CAXIF RFC 6350</docidentifier><docnumber>RFC 6350</docnumber><contributor><role type="author"/><organization>
+<name>My Organization name</name>
+<abbreviation>NIST CAXIF</abbreviation></organization></contributor><contributor><role type="author"/><person>
+<name><completename>Simon Perreault</completename></name>
+<phone>+1 418 656 9254</phone><email>simon.perreault@viagenie.ca</email></person></contributor><contributor><role type="publisher"/><organization>
+<name>My Organization name</name>
+<abbreviation>NIST CAXIF</abbreviation></organization></contributor><version><revision-date>2011-08-01</revision-date></version><language>en</language><script>Latn</script><status><stage>published</stage></status><copyright><from>2024</from><owner><organization>
+<name>My Organization name</name>
+<abbreviation>NIST CAXIF</abbreviation></organization></owner></copyright><ext><doctype>standard</doctype></ext></bibdata><metanorma-extension><presentation-metadata><name>TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>HTML TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>DOC TOC Heading Levels</name><value>2</value></presentation-metadata></metanorma-extension>
+<preface><foreword id="_b64d5d3c-5164-49cb-0527-91073072b594" obligation="informative">
+<title>Foreword</title>
+<p id="_190b5948-839e-3816-9664-3c88305eb9bd">TBD</p>
+</foreword><introduction id="section1" obligation="informative">
+<title>Introduction</title>
+<clause id="_general" obligation="informative">
+<title>General</title>
+<p id="_cb791b13-4541-9b10-c9d7-d45d0aee312c">Electronic address books have become ubiquitous.  Their increased
+presence on portable, connected devices as well as the diversity of
+platforms that exchange contact data call for a standard.  This memo
+defines the vCard format, which allows the capture and exchange of
+information normally stored within an address book or directory
+application.</p>
+
+<p id="_d98185c5-6f3c-a726-a90b-7846e5d8de45">A high-level overview of the differences from <xref target="RFC2425"/> and <xref target="RFC2426"/> can
+be found in <xref target="appendixA"/>.</p>
+</clause>
+
+<clause id="_conventions" obligation="informative">
+<title>Conventions</title>
+<p id="_748f39f6-05ed-8714-b774-1e2877d385cd">The key words “<keyword>MUST</keyword>”, “<keyword>MUST NOT</keyword>”, “<keyword>REQUIRED</keyword>”, “<keyword>SHALL</keyword>”, “<keyword>SHALL NOT</keyword>”,
+“<keyword>SHOULD</keyword>”, “<keyword>SHOULD NOT</keyword>”, “<keyword>RECOMMENDED</keyword>”, “<keyword>NOT RECOMMENDED</keyword>”, “<keyword>MAY</keyword>”, and
+“<keyword>OPTIONAL</keyword>” in this document are to be interpreted as described in
+<eref type="inline" bibitemid="RFC2119" citeas="IETF RFC 2119"/>.</p>
+</clause>
+</introduction></preface><sections>
+
+<clause id="_scope" type="scope" obligation="normative">
+<title>Scope</title>
+<p id="_3466034c-4b15-0197-e91d-4504803aa83e">This document defines the vCard data format for representing and
+exchanging a variety of information about individuals and other
+entities (e.g., formatted and structured name and delivery addresses,
+email address, multiple telephone numbers, photograph, logo, audio
+clips, etc.).  This document obsoletes <xref target="RFC2425"/>, <xref target="RFC2426"/>, and <xref target="RFC4770"/>, and
+updates <eref type="inline" bibitemid="RFC2739" citeas="IETF RFC 2739"/>.</p>
+</clause>
+
+<terms id="_terms_and_definitions" obligation="normative">
+<title>Terms and definitions</title><p id="_5195c285-daa8-8757-504c-cffd6830ca94">No terms and definitions are listed in this document.</p>
+
+</terms>
+
+<clause id="section3" obligation="normative">
+<title>vCard Format Specification</title>
+<clause id="_general_2" obligation="normative">
+<title>General</title>
+<p id="_8a7e3074-5de8-e06c-69ec-a9f0a7239291">The text/vcard MIME content type (hereafter known as “vCard”; see
+<xref target="section10_1"/>) contains contact information, typically pertaining to a
+single contact or group of contacts.  The content consists of one or
+more lines in the format given below.</p>
+</clause>
+
+<clause id="section3_1" obligation="normative">
+<title>Charset</title>
+<p id="_c458461d-2c93-bc42-b11b-769e1aa59449">The charset (see <xref target="RFC3536"/> for internationalization terminology) for
+vCard is UTF-8 as defined in <eref type="inline" bibitemid="RFC3629" citeas="IETF RFC 3629"/>.  There is no way to override
+this.  It is invalid to specify a value other than “UTF-8” in the
+“charset” MIME parameter (see <xref target="section10_1"/>).</p>
+</clause>
+
+<clause id="section3_2" obligation="normative">
+<title>Line Delimiting and Folding</title>
+<p id="_5bc551c3-f631-5970-21a5-a7864afdbe16">Individual lines within vCard are delimited by the <eref type="inline" bibitemid="RFC5322" citeas="IETF RFC 5322"/> line
+break, which is a CRLF sequence (U+000D followed by U+000A).  Long
+logical lines of text can be split into a multiple-physical-line
+representation using the following folding technique.  Content lines
+<keyword>SHOULD</keyword> be folded to a maximum width of 75 octets, excluding the line
+break.  Multi-octet characters <keyword>MUST</keyword> remain contiguous.  The rationale
+for this folding process can be found in <eref type="inline" bibitemid="RFC5322" citeas="IETF RFC 5322"><localityStack><locality type="section"><referenceFrom>2.1.1</referenceFrom></locality></localityStack></eref>.</p>
+
+<p id="_ea13a571-0fe4-192b-33f7-e3d22caaf005">A logical line <keyword>MAY</keyword> be continued on the next physical line anywhere
+between two characters by inserting a CRLF immediately followed by a
+single white space character (space (U+0020) or horizontal tab
+(U+0009)).  The folded line <keyword>MUST</keyword> contain at least one character.  Any
+sequence of CRLF followed immediately by a single white space
+character is ignored (removed) when processing the content type.  For
+example, the line:</p>
+
+<figure id="_6e377be6-5b37-570c-a944-ba3cabf68124"><pre id="_7c63764c-36a7-5fa3-41d0-356a0b816fc6">  NOTE:This is a long description that exists on a long line.</pre></figure>
+
+<p id="_0e6d2775-c81e-3670-d340-9c0bb72e9e7c">can be represented as:</p>
+
+<figure id="_7f48849e-9fd8-f429-3ad4-7fd958a84fb5"><pre id="_0d7d0daa-07af-7b47-29a9-912d53bf81b7">  NOTE:This is a long description
+    that exists on a long line.</pre></figure>
+
+<p id="_ed5e3623-a448-5c72-5ee9-1a30c7d5346a">It could also be represented as:</p>
+
+<figure id="_d9709445-5765-0e48-8dbd-e34f553805da"><pre id="_c027625c-70ce-87aa-6e57-fada6353f329">  NOTE:This is a long descrip
+   tion that exists o
+   n a long line.</pre></figure>
+
+<p id="_cb062297-6f6c-07e2-8b51-0fa193b38230">The process of moving from this folded multiple-line representation
+of a property definition to its single-line representation is called
+unfolding.  Unfolding is accomplished by regarding CRLF immediately
+followed by a white space character (namely, HTAB (U+0009) or SPACE
+(U+0020)) as equivalent to no characters at all (i.e., the CRLF and
+single white space character are removed).</p>
+
+<p id="_4c5cd959-f917-4dbc-3a78-785053066a1f">Note: It is possible for very simple implementations to generate
+improperly folded lines in the middle of a UTF-8 multi-octet
+sequence.  For this reason, implementations <keyword>SHOULD</keyword> unfold lines in
+such a way as to properly restore the original sequence.</p>
+
+<p id="_526f884d-9dd5-b7a4-9ab7-6a89654cd76f">Note: Unfolding is done differently than in <eref type="inline" bibitemid="RFC5322" citeas="IETF RFC 5322"/>.  Unfolding
+in <eref type="inline" bibitemid="RFC5322" citeas="IETF RFC 5322"/> only removes the CRLF, not the space following it.</p>
+
+<p id="_c494e701-c43c-c6ea-1988-3016d11d573c">Folding is done after any content encoding of a type value.
+Unfolding is done before any decoding of a type value in a content
+line.</p>
+</clause>
+
+<clause id="section3_3" obligation="normative">
+<title>ABNF Format Definition</title>
+<p id="_3d305c19-9f0f-a9b9-57ff-8b920b4cc660">The following ABNF uses the notation of <eref type="inline" bibitemid="RFC5234" citeas="IETF RFC 5234"/>, which also defines
+CRLF, WSP, DQUOTE, VCHAR, ALPHA, and DIGIT.</p>
+
+<sourcecode id="_b141cd3c-11fa-6b68-5027-735bd72c0f5d" lang="abnf">vcard-entity = 1*vcard
+
+vcard = "BEGIN:VCARD" CRLF
+        "VERSION:4.0" CRLF
+        1*contentline
+        "END:VCARD" CRLF
+  ; A vCard object MUST include the VERSION and FN properties.
+  ; VERSION MUST come immediately after BEGIN:VCARD.
+
+contentline = [group "."] name *(";" param) ":" value CRLF
+  ; When parsing a content line, folded lines must first
+  ; be unfolded according to the unfolding procedure
+  ; described in Section 3.2.
+  ; When generating a content line, lines longer than 75
+  ; characters SHOULD be folded according to the folding
+  ; procedure described in Section 3.2.
+
+group = 1*(ALPHA / DIGIT / "-")
+name  = "SOURCE" / "KIND" / "FN" / "N" / "NICKNAME"
+      / "PHOTO" / "BDAY" / "ANNIVERSARY" / "GENDER" / "ADR" / "TEL"
+      / "EMAIL" / "IMPP" / "LANG" / "TZ" / "GEO" / "TITLE" / "ROLE"
+      / "LOGO" / "ORG" / "MEMBER" / "RELATED" / "CATEGORIES"
+      / "NOTE" / "PRODID" / "REV" / "SOUND" / "UID" / "CLIENTPIDMAP"
+      / "URL" / "KEY" / "FBURL" / "CALADRURI" / "CALURI" / "XML"
+      / iana-token / x-name
+  ; Parsing of the param and value is based on the "name" as
+  ; defined in ABNF sections below.
+  ; Group and name are case-insensitive.
+
+iana-token = 1*(ALPHA / DIGIT / "-")
+  ; identifier registered with IANA
+
+x-name = "x-" 1*(ALPHA / DIGIT / "-")
+  ; Names that begin with "x-" or "X-" are
+  ; reserved for experimental use, not intended for released
+  ; products, or for use in bilateral agreements.
+
+param = language-param / value-param / pref-param / pid-param
+      / type-param / geo-parameter / tz-parameter / sort-as-param
+      / calscale-param / any-param
+  ; Allowed parameters depend on property name.
+
+param-value = *SAFE-CHAR / DQUOTE *QSAFE-CHAR DQUOTE
+
+any-param  = (iana-token / x-name) "=" param-value *("," param-value)
+
+NON-ASCII = UTF8-2 / UTF8-3 / UTF8-4
+  ; UTF8-{2,3,4} are defined in IETF RFC 3629
+
+QSAFE-CHAR = WSP / "!" / %x23-7E / NON-ASCII
+  ; Any character except CTLs, DQUOTE
+
+SAFE-CHAR = WSP / "!" / %x23-39 / %x3C-7E / NON-ASCII
+  ; Any character except CTLs, DQUOTE, ";", ":"
+
+VALUE-CHAR = WSP / VCHAR / NON-ASCII
+  ; Any textual character</sourcecode>
+
+
+<p id="_9b4d9516-7d83-7282-91fb-6bb32ac1d615">A line that begins with a white space character is a continuation of
+the previous line, as described in <xref target="section3_2"/>.  The white space
+character and immediately preceeding CRLF should be discarded when
+reconstructing the original line.  Note that this line-folding
+convention differs from that found in <eref type="inline" bibitemid="RFC5322" citeas="IETF RFC 5322"/>, in that the sequence
+&lt;CRLF&gt;&lt;WSP&gt; found anywhere in the content indicates a continued line
+and should be removed.</p>
+
+<p id="_eda4d763-f0f8-4554-319e-137b5b7c0ba0">Property names and parameter names are case-insensitive (e.g., the
+property name “fn” is the same as “FN” and “Fn”).  Parameter values
+<keyword>MAY</keyword> be case-sensitive or case-insensitive, depending on their
+definition.  Parameter values that are not explicitly defined as
+being case-sensitive are case-insensitive.  Based on experience with
+vCard 3 interoperability, it is <keyword>RECOMMENDED</keyword> that property and
+parameter names be upper-case on output.</p>
+
+<p id="_d4268817-6ec8-808a-83c1-3ce24e7451e2">The group construct is used to group related properties together.
+The group name is a syntactic convention used to indicate that all
+property names prefaced with the same group name <keyword>SHOULD</keyword> be grouped
+together when displayed by an application.  It has no other
+significance.  Implementations that do not understand or support
+grouping <keyword>MAY</keyword> simply strip off any text before a “.” to the left of
+the type name and present the types and values as normal.</p>
+
+<p id="_755898b3-d6fb-8318-ef4b-128a3c4f6f8b">Property cardinalities are indicated using the following notation,
+which is based on ABNF (see <eref type="inline" bibitemid="RFC5234" citeas="IETF RFC 5234"><localityStack><locality type="section"><referenceFrom>3.6</referenceFrom></locality></localityStack></eref>):</p>
+
+<table id="_4418350d-4e9b-c424-711d-01f1e859dcb5"><thead><tr><th valign="top" align="left">Cardinality</th>
+<th valign="top" align="left">Meaning</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">1</td>
+<td valign="top" align="left">Exactly one instance per vCard <keyword>MUST</keyword> be present.</td>
+</tr><tr><td valign="top" align="left">*1</td>
+<td valign="top" align="left">Exactly one instance per vCard <keyword>MAY</keyword> be present.</td>
+</tr><tr><td valign="top" align="left">1*</td>
+<td valign="top" align="left">One or more instances per vCard <keyword>MUST</keyword> be present.</td>
+</tr><tr><td valign="top" align="left">*</td>
+<td valign="top" align="left">One or more instances per vCard <keyword>MAY</keyword> be present.</td>
+</tr></tbody>
+</table>
+
+<p id="_ff147ac6-9cd2-93b7-6d4b-ecfccc699eec">Properties defined in a vCard instance may have multiple values
+depending on the property cardinality.  The general rule for encoding
+multi-valued properties is to simply create a new content line for
+each value (including the property name).  However, it should be
+noted that some value types support encoding multiple values in a
+single content line by separating the values with a comma “,”.  This
+approach has been taken for several of the content types defined
+below (date, time, integer, float).</p>
+</clause>
+
+<clause id="section3_4" obligation="normative">
+<title>Property Value Escaping</title>
+<p id="_b7f73da6-efde-5f79-c8d5-a53954687e7a">Some properties may contain one or more values delimited by a COMMA
+character (U+002C).  Therefore, a COMMA character in a value <keyword>MUST</keyword> be
+escaped with a BACKSLASH character (U+005C), even for properties that
+don’t allow multiple instances (for consistency).</p>
+
+<p id="_e97ee60b-fa1a-bcfa-377e-6480399751d9">Some properties (e.g., N and ADR) comprise multiple fields delimited
+by a SEMICOLON character (U+003B).  Therefore, a SEMICOLON in a field
+of such a “compound” property <keyword>MUST</keyword> be escaped with a BACKSLASH
+character.  SEMICOLON characters in non-compound properties <keyword>MAY</keyword> be
+escaped.  On input, an escaped SEMICOLON character is never a field
+separator.  An unescaped SEMICOLON character may be a field
+separator, depending on the property in which it appears.</p>
+
+<p id="_dff5facd-c110-3ee0-fbe5-8dab7b13c71c">Furthermore, some fields of compound properties may contain a list of
+values delimited by a COMMA character.  Therefore, a COMMA character
+in one of a field’s values <keyword>MUST</keyword> be escaped with a BACKSLASH
+character, even for fields that don’t allow multiple values (for
+consistency).  Compound properties allowing multiple instances <keyword>MUST NOT</keyword>
+be encoded in a single content line.</p>
+
+<p id="_9ac41899-c80b-359e-1984-6db06cc7105c">Finally, BACKSLASH characters in values <keyword>MUST</keyword> be escaped with a
+BACKSLASH character.  NEWLINE (U+000A) characters in values <keyword>MUST</keyword> be
+encoded by two characters: a BACKSLASH followed by either an ‘n’
+(U+006E) or an ‘N’ (U+004E).</p>
+
+<p id="_efad9066-25e9-f4de-eb43-5ae5a5fd9f56">In all other cases, escaping <keyword>MUST NOT</keyword> be used.</p>
+</clause>
+</clause>
+
+
+
+
+</sections><annex id="appendixA" obligation="normative">
+<title>Differences from RFCs 2425 and 2426</title>
+<p id="_36840ab2-3eb4-b056-8410-03f8f009e75c">This appendix contains a high-level overview of the major changes
+that have been made in the vCard specification from <xref target="RFC2425"/> and
+<xref target="RFC2426"/>.  It is incomplete, as it only lists the most important changes.</p>
+
+<clause id="appendixA_1" obligation="normative">
+<title>New Structure</title>
+<ul id="_ee6daad9-4177-cfc1-2db2-0d6548446213"><li><p id="_3a1ebb18-05b9-1e7d-293d-989761050369"><xref target="RFC2425"/> and <xref target="RFC2426"/> have been merged.</p>
+</li>
+<li><p id="_da7c7ded-8d55-3c3d-04e2-82f63c809703">vCard is now not only a MIME type but a stand-alone format.</p>
+</li>
+<li><p id="_33cd125f-d67e-7cc3-bc6c-8739116c0469">A proper MIME type registration form has been included.</p>
+</li>
+<li><p id="_80aabd2a-10ea-42f3-e233-c34b26ab0d1e">UTF-8 is now the only possible character set.</p>
+</li>
+<li><p id="_8f361ca9-ea47-8756-5a58-f442edae6a87">New vCard elements can be registered from IANA.</p>
+</li>
+</ul>
+</clause>
+
+<clause id="appendixA_2" obligation="normative">
+<title>Removed Features</title>
+<ul id="_e425d313-cffa-c3c2-75c2-22d64da32658"><li><p id="_afa07721-525e-6ac1-6adb-887d96acba22">The CONTEXT and CHARSET parameters are no more.</p>
+</li>
+<li><p id="_95a37343-e5c9-27cb-a90a-0b13f82f89b2">The NAME, MAILER, LABEL, and CLASS properties are no more.</p>
+</li>
+<li><p id="_1a661b21-a8f8-0007-a581-df26192212ce">The “intl”, “dom”, “postal”, and “parcel” TYPE parameter values
+for the ADR property have been removed.</p>
+</li>
+<li><p id="_482518b9-15a8-bcfe-aa1a-b4d4ef42c2ca">In-line vCards (such as the value of the AGENT property) are no
+longer supported.</p>
+</li>
+</ul>
+</clause>
+
+<clause id="appendixA_3" obligation="normative">
+<title>New Properties and Parameters</title>
+<ul id="_9b6750c4-9830-fa3d-f73e-555d938954e3"><li><p id="_ff17d26a-7c36-bcdb-2b6b-f8553b8462ff">The KIND, GENDER, LANG, ANNIVERSARY, XML, and CLIENTPIDMAP
+properties have been added.</p>
+</li>
+<li><p id="_7f632b7d-051f-5f54-d73a-24f23886e49a"><eref type="inline" bibitemid="RFC2739" citeas="IETF RFC 2739"/>, which defines the FBURL, CALADRURI, CAPURI, and CALURI
+properties, has been merged in.</p>
+</li>
+<li><p id="_01a06937-89a9-91e3-88ad-00c5b0322388"><xref target="RFC4770"/>, which defines the IMPP property, has been merged in.</p>
+</li>
+<li><p id="_66574348-a3e8-f966-f531-e54a788bf505">The “work” and “home” TYPE parameter values are now applicable to
+many more properties.</p>
+</li>
+<li><p id="_93a9b63c-27d1-58b0-93b6-5be5c858a7a5">The “pref” value of the TYPE parameter is now a parameter of its
+own, with a positive integer value indicating the level of
+preference.</p>
+</li>
+<li><p id="_4c38c2d8-acce-7fca-81e9-4bf56e1fc1b4">The ALTID and PID parameters have been added.</p>
+</li>
+<li><p id="_e517a74e-28f5-f79d-6120-901b36418db2">The MEDIATYPE parameter has been added and replaces the TYPE
+parameter when it was used for indicating the media type of the
+property’s content.</p>
+</li>
+</ul>
+</clause>
+</annex><bibliography><references id="_normative_references" normative="true" obligation="informative">
+<title>Normative references</title><p id="_bcd1cf39-fe43-6d8e-177c-0e6fba33c827">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+<bibitem id="CCITT.X520.1988"><formattedref format="application/x-isodoc+xml">International Telephone and Telegraph Consultative Committee, <em>Information Technology — Open Systems Interconnection — The Directory: Selected Attribute Types.</em> 1988.</formattedref><docidentifier>CCITT Recommendation X520</docidentifier><docnumber>520</docnumber></bibitem>
+<bibitem id="IEEE754" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">IEEE Standard for Binary Floating-Point Arithmetic</title>
+  <uri type="src">https://ieeexplore.ieee.org/document/30711</uri>  <docidentifier type="IEEE" primary="true">ANSI/IEEE 754-1985</docidentifier>  <docidentifier type="IEEE" scope="trademark" primary="true">ANSI/IEEE 754™-1985</docidentifier>  <docidentifier type="ISBN">978-0-7381-1165-0</docidentifier>  <docidentifier type="DOI">10.1109/IEEESTD.1985.82928</docidentifier>  <docnumber>ANSI/IEEE 754-1985</docnumber>  <date type="created">    <on>1985-10-12</on>  </date>  <date type="published">    <on>2019-04-05</on>  </date>  <date type="issued">    <on>1985-03-21</on>  </date>  <contributor>    <role type="publisher"/>    <organization>      
+<name>Institute of Electrical and Electronics Engineers</name>
+      <abbreviation>IEEE</abbreviation>      <uri>http://www.ieee.org</uri>      <address>        <city>New York</city>        <country>USA</country>      </address>    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">A family of commercially feasible ways for new systems to perform binary floating-point arithmetic is defined. This standard specifies basic and extended floating-point number formats; add, subtract, multiply, divide, square root, remainder, and compare operations; conversions between integer and floating-point formats; conversions between different floating-point formats; conversions between basic-format floating-point numbers and decimal strings; and floating-point exceptions and their handling, including nonnumbers.</abstract>  <copyright>    <from>1985</from>    <owner>      <organization>        
+<name>Institute of Electrical and Electronics Engineers</name>
+        <abbreviation>IEEE</abbreviation>        <uri>http://www.ieee.org</uri>      </organization>    </owner>  </copyright>  <relation type="obsoletedBy">    <bibitem>      <formattedref format="text/plain">IEEE 754-2008</formattedref>      <docidentifier type="IEEE" primary="true">IEEE 754-2008</docidentifier>    </bibitem>
+  </relation>  <keyword>Digital arithmetic</keyword>  <keyword>Standards</keyword>  <keyword>binary</keyword>  <keyword>Floating-point arithmetic</keyword></bibitem>
+<bibitem id="ISO8601.2000" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="title-intro" format="text/plain" language="en" script="Latn">Data elements and interchange formats</title>
+  
+<title type="title-main" format="text/plain" language="en" script="Latn">Information interchange</title>
+  
+<title type="title-part" format="text/plain" language="en" script="Latn">Representation of dates and times</title>
+  
+<title type="main" format="text/plain" language="en" script="Latn">Data elements and interchange formats — Information interchange — Representation of dates and times</title>
+  <uri type="src">https://www.iso.org/standard/26780.html</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/02/67/26780.detail.rss</uri>  <docidentifier type="ISO" primary="true">ISO 8601:2000</docidentifier>  <docidentifier type="iso-reference">ISO 8601:2000(E)</docidentifier>  <docidentifier type="URN">urn:iso:std:iso:8601:stage-95.99:ed-2</docidentifier>  <docnumber>8601</docnumber>  <date type="published">    <on>2000-12</on>  </date>  <contributor>    <role type="publisher"/>    <organization>      
+<name>International Organization for Standardization</name>
+      <abbreviation>ISO</abbreviation>      <uri>www.iso.org</uri>    </organization>  </contributor>  <edition>2</edition>  <language>en</language>  <script>Latn</script>  <status>    <stage>95</stage>    <substage>99</substage>  </status>  <copyright>    <from>2000</from>    <owner>      <organization>        
+<name>ISO</name>
+      </organization>    </owner>  </copyright>  <relation type="obsoletes">    <bibitem type="standard">      <formattedref format="text/plain">ISO 8601:1988</formattedref>      <docidentifier type="ISO" primary="true">ISO 8601:1988</docidentifier>    </bibitem>
+  </relation>  <relation type="obsoletes">    <bibitem type="standard">      <formattedref format="text/plain">ISO 8601:1988/Cor 1:1991</formattedref>      <docidentifier type="ISO" primary="true">ISO 8601:1988/Cor 1:1991</docidentifier>    </bibitem>
+  </relation>  <relation type="updates">    <bibitem type="standard">      <formattedref format="text/plain">ISO 8601:2004</formattedref>      <docidentifier type="ISO" primary="true">ISO 8601:2004</docidentifier>      <date type="circulated">        <on>2004-12-03</on>      </date>    </bibitem>
+  </relation>  <place>Geneva</place></bibitem>
+<bibitem id="ISO8601" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="title-intro" format="text/plain" language="en" script="Latn">Data elements and interchange formats</title>
+  
+<title type="title-main" format="text/plain" language="en" script="Latn">Information interchange</title>
+  
+<title type="title-part" format="text/plain" language="en" script="Latn">Representation of dates and times</title>
+  
+<title type="main" format="text/plain" language="en" script="Latn">Data elements and interchange formats — Information interchange — Representation of dates and times</title>
+  <uri type="src">https://www.iso.org/standard/40874.html</uri>  <uri type="rss">https://www.iso.org/contents/data/standard/04/08/40874.detail.rss</uri>  <docidentifier type="ISO" primary="true">ISO 8601:2004</docidentifier>  <docidentifier type="iso-reference">ISO 8601:2004(E)</docidentifier>  <docidentifier type="URN">urn:iso:std:iso:8601:stage-95.99:ed-3</docidentifier>  <docnumber>8601</docnumber>  <date type="published">    <on>2004-12</on>  </date>  <contributor>    <role type="publisher"/>    <organization>      
+<name>International Organization for Standardization</name>
+      <abbreviation>ISO</abbreviation>      <uri>www.iso.org</uri>    </organization>  </contributor>  <edition>3</edition>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">ISO 8601:2004 is applicable whenever representation of dates in the Gregorian calendar, times in the 24-hour timekeeping system, time intervals and recurring time intervals or of the formats of these representations are included in information interchange. It includes — calendar dates expressed in terms of calendar year, calendar month and calendar day of the month; — ordinal dates expressed in terms of calendar year and calendar day of the year; — week dates expressed in terms of calendar year, calendar week number and calendar day of the week; — local time based upon the 24-hour timekeeping system; — Coordinated Universal Time of day; — local time and the difference from Coordinated Universal Time; — combination of date and time of day; — time intervals; — recurring time intervals. ISO 8601:2004 does not cover dates and times where words are used in the representation and dates and times where characters are not used in the representation. ISO 8601:2004 does not assign any particular meaning or interpretation to any data element that uses representations in accordance with ISO 8601:2004. Such meaning will be determined by the context of the application.</abstract>  <status>    <stage>95</stage>    <substage>99</substage>  </status>  <copyright>    <from>2004</from>    <owner>      <organization>        
+<name>ISO</name>
+      </organization>    </owner>  </copyright>  <relation type="obsoletes">    <bibitem type="standard">      <formattedref format="text/plain">ISO 8601:2000</formattedref>      <docidentifier type="ISO" primary="true">ISO 8601:2000</docidentifier>    </bibitem>
+  </relation>  <relation type="updates">    <bibitem type="standard">      <formattedref format="text/plain">ISO 8601-1:2019</formattedref>      <docidentifier type="ISO" primary="true">ISO 8601-1:2019</docidentifier>      <date type="circulated">        <on>2019-02-25</on>      </date>    </bibitem>
+  </relation>  <relation type="updates">    <bibitem type="standard">      <formattedref format="text/plain">ISO 8601-2:2019</formattedref>      <docidentifier type="ISO" primary="true">ISO 8601-2:2019</docidentifier>      <date type="circulated">        <on>2019-02-25</on>      </date>    </bibitem>
+  </relation>  <place>Geneva</place></bibitem>
+<bibitem id="RFC2045" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2045</uri>  <docidentifier type="IETF" primary="true">RFC 2045</docidentifier>  <docidentifier type="DOI">10.17487/RFC2045</docidentifier>  <docnumber>RFC2045</docnumber>  <date type="published">    <on>1996-11</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">N. Freed</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">N. Borenstein</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_9023b45a-56c7-5ea1-a9fc-84320ae1a2aa">This initial document specifies the various headers used to describe the structure of MIME messages. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>2045</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>MIME</keyword>  <keyword>media</keyword>  <keyword>types</keyword>  <keyword>headers</keyword></bibitem>
+<bibitem id="RFC2046" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2046</uri>  <docidentifier type="IETF" primary="true">RFC 2046</docidentifier>  <docidentifier type="DOI">10.17487/RFC2046</docidentifier>  <docnumber>RFC2046</docnumber>  <date type="published">    <on>1996-11</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">N. Freed</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">N. Borenstein</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_96c9b540-e82c-5ffa-fbe7-fb9fd5138fca">This second document defines the general structure of the MIME media typing system and defines an initial set of media types. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>2046</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>MIME-MEDIA</keyword>  <keyword>headers</keyword>  <keyword>structure</keyword></bibitem>
+<bibitem id="RFC2119" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Key words for use in RFCs to Indicate Requirement Levels</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2119</uri>  <docidentifier type="IETF" primary="true">RFC 2119</docidentifier>  <docidentifier type="DOI">10.17487/RFC2119</docidentifier>  <docnumber>RFC2119</docnumber>  <date type="published">    <on>1997-03</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">S. Bradner</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_5598c580-29ff-c7a4-a520-cf3696f33d32">In many standards track documents several words are used to signify the requirements in the specification. These words are often capitalized. This document defines these words as they should be interpreted in IETF documents. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</p>
+  </abstract>  <series>    
+<title format="text/plain">BCP</title>
+    <number>14</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>2119</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>Standards</keyword>  <keyword>Track</keyword>  <keyword>Documents</keyword></bibitem>
+<bibitem id="RFC2739" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Calendar Attributes for vCard and LDAP</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2739</uri>  <docidentifier type="IETF" primary="true">RFC 2739</docidentifier>  <docidentifier type="DOI">10.17487/RFC2739</docidentifier>  <docnumber>RFC2739</docnumber>  <date type="published">    <on>2000-01</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">T. Small</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">D. Hennessy</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">F. Dawson</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_e640180a-b85b-fa55-13d4-e40b816210d4">This memo defines three mechanisms for obtaining a URI to a user’s calendar and free/busy time. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>2739</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>LDAP</keyword>  <keyword>lightweight directory access protocol</keyword>  <keyword>calendar</keyword></bibitem>
+<bibitem id="RFC3629" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">UTF-8, a transformation format of ISO 10646</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc3629</uri>  <docidentifier type="IETF" primary="true">RFC 3629</docidentifier>  <docidentifier type="DOI">10.17487/RFC3629</docidentifier>  <docnumber>RFC3629</docnumber>  <date type="published">    <on>2003-11</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">F. Yergeau</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_bf62d99b-409b-a256-3022-b6c170625678">ISO/IEC 10646-1 defines a large character set called the Universal Character Set (UCS) which encompasses most of the world’s writing systems. The originally proposed encodings of the UCS, however, were not compatible with many current applications and protocols, and this has led to the development of UTF-8, the object of this memo. UTF-8 has the characteristic of preserving the full US-ASCII range, providing compatibility with file systems, parsers and other software that rely on US-ASCII values but are transparent to other values. This memo obsoletes and replaces RFC 2279.</p>
+  </abstract>  <series>    
+<title format="text/plain">STD</title>
+    <number>63</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>3629</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>UTF-8</keyword>  <keyword>UCS</keyword>  <keyword>Universal Character Set</keyword>  <keyword>Transformation</keyword>  <keyword>Format</keyword></bibitem>
+<bibitem id="RFC3966" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">The tel URI for Telephone Numbers</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc3966</uri>  <docidentifier type="IETF" primary="true">RFC 3966</docidentifier>  <docidentifier type="DOI">10.17487/RFC3966</docidentifier>  <docnumber>RFC3966</docnumber>  <date type="published">    <on>2004-12</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">H. Schulzrinne</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_204c9f72-f567-85a5-0bbe-06f511631983">This document specifies the URI (Uniform Resource Identifier) scheme “tel”. The “tel” URI describes resources identified by telephone numbers. This document obsoletes RFC 2806. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>3966</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>URI</keyword>  <keyword>uniform resource identifier</keyword>  <keyword>locator</keyword>  <keyword>schemes</keyword>  <keyword>tel</keyword></bibitem>
+<bibitem id="RFC3986" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Uniform Resource Identifier (URI): Generic Syntax</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc3986</uri>  <docidentifier type="IETF" primary="true">RFC 3986</docidentifier>  <docidentifier type="DOI">10.17487/RFC3986</docidentifier>  <docnumber>RFC3986</docnumber>  <date type="published">    <on>2005-01</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">T. Berners-Lee</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">R. Fielding</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">L. Masinter</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_e095e885-6757-ae22-e159-933cef192c0c">A Uniform Resource Identifier (URI) is a compact sequence of characters that identifies an abstract or physical resource. This specification defines the generic URI syntax and a process for resolving URI references that might be in relative form, along with guidelines and security considerations for the use of URIs on the Internet. The URI syntax defines a grammar that is a superset of all valid URIs, allowing an implementation to parse the common components of a URI reference without knowing the scheme-specific requirements of every possible identifier. This specification does not define a generative grammar for URIs; that task is performed by the individual specifications of each URI scheme. [STANDARDS-TRACK]</p>
+  </abstract>  <relation type="updates">    <bibitem>      <formattedref format="text/plain">RFC1738</formattedref>      <docidentifier type="IETF" primary="true">RFC1738</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">STD</title>
+    <number>66</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>3986</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>Internet protocol</keyword>  <keyword>IP</keyword>  <keyword>uniform resource identifier</keyword>  <keyword>URI</keyword>  <keyword>www</keyword>  <keyword>world wide web</keyword></bibitem>
+<bibitem id="RFC4122" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">A Universally Unique IDentifier (UUID) URN Namespace</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc4122</uri>  <docidentifier type="IETF" primary="true">RFC 4122</docidentifier>  <docidentifier type="DOI">10.17487/RFC4122</docidentifier>  <docnumber>RFC4122</docnumber>  <date type="published">    <on>2005-07</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">P. Leach</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">M. Mealling</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">R. Salz</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_bc6b29cd-045e-aec0-cb4c-4702c0f0f163">This specification defines a Uniform Resource Name namespace for UUIDs (Universally Unique IDentifier), also known as GUIDs (Globally Unique IDentifier). A UUID is 128 bits long, and can guarantee uniqueness across space and time. UUIDs were originally used in the Apollo Network Computing System and later in the Open Software Foundation\’s (OSF) Distributed Computing Environment (DCE), and then in Microsoft Windows platforms.</p>
+    <p id="_0d15bf94-8fb5-cf9c-0ced-7277784f4b78">This specification is derived from the DCE specification with the kind permission of the OSF (now known as The Open Group). Information from earlier versions of the DCE specification have been incorporated into this document. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>4122</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>uniform resource name</keyword>  <keyword>guid</keyword>  <keyword>globally unique identifier</keyword></bibitem>
+<bibitem id="RFC4288" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Media Type Specifications and Registration Procedures</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc4288</uri>  <docidentifier type="IETF" primary="true">RFC 4288</docidentifier>  <docidentifier type="DOI">10.17487/RFC4288</docidentifier>  <docnumber>RFC4288</docnumber>  <date type="published">    <on>2005-12</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">N. Freed</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">J. Klensin</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_ba3eab07-57b9-f830-6bfd-d05e70f86162">This document defines procedures for the specification and registration of media types for use in MIME and other Internet protocols. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</p>
+  </abstract>  <relation type="obsoletedBy">    <bibitem>      <formattedref format="text/plain">RFC6838</formattedref>      <docidentifier type="IETF" primary="true">RFC6838</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">RFC</title>
+    <number>4288</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>mime</keyword>  <keyword>multipurpose internet mail extensions</keyword>  <keyword>media types</keyword></bibitem>
+<bibitem id="RFC5234" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Augmented BNF for Syntax Specifications: ABNF</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5234</uri>  <docidentifier type="IETF" primary="true">RFC 5234</docidentifier>  <docidentifier type="DOI">10.17487/RFC5234</docidentifier>  <docnumber>RFC5234</docnumber>  <date type="published">    <on>2008-01</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">D. Crocker</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">P. Overell</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_9324be45-bc6e-b2ed-1912-6d6e07843896">Internet technical specifications often need to define a formal syntax. Over the years, a modified version of Backus-Naur Form (BNF), called Augmented BNF (ABNF), has been popular among many Internet specifications. The current specification documents ABNF. It balances compactness and simplicity with reasonable representational power. The differences between standard BNF and ABNF involve naming rules, repetition, alternatives, order-independence, and value ranges. This specification also supplies additional rule definitions and encoding for a core lexical analyzer of the type common to several Internet specifications. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">STD</title>
+    <number>68</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5234</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>ABNF</keyword>  <keyword>backus-naur form</keyword>  <keyword>augmented backus-naur form</keyword>  <keyword>rule definitions</keyword>  <keyword>encoding</keyword>  <keyword>core lexical analyzer</keyword></bibitem>
+<bibitem id="RFC5322" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Internet Message Format</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5322</uri>  <docidentifier type="IETF" primary="true">RFC 5322</docidentifier>  <docidentifier type="DOI">10.17487/RFC5322</docidentifier>  <docnumber>RFC5322</docnumber>  <date type="published">    <on>2008-10</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">P. Resnick</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_2e531094-9f0d-d81c-30a0-ce72884a56f4">This document specifies the Internet Message Format (IMF), a syntax for text messages that are sent between computer users, within the framework of “electronic mail” messages. This specification is a revision of Request For Comments (RFC) 2822, which itself superseded Request For Comments (RFC) 822, “Standard for the Format of ARPA Internet Text Messages”, updating it to reflect current practice and incorporating incremental changes that were specified in other RFCs. [STANDARDS-TRACK]</p>
+  </abstract>  <relation type="updates">    <bibitem>      <formattedref format="text/plain">RFC4021</formattedref>      <docidentifier type="IETF" primary="true">RFC4021</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5322</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>MAIL]</keyword>  <keyword>e-mail</keyword>  <keyword>email</keyword>  <keyword>electronic mail</keyword>  <keyword>header</keyword>  <keyword>address</keyword>  <keyword>mailbox</keyword>  <keyword>reply</keyword>  <keyword>forward</keyword>  <keyword>resend</keyword>  <keyword>resent</keyword>  <keyword>folding</keyword>  <keyword>Date</keyword>  <keyword>From</keyword>  <keyword>Sender</keyword>  <keyword>Reply-To</keyword>  <keyword>To</keyword>  <keyword>Cc</keyword>  <keyword>Bcc</keyword>  <keyword>Message-ID</keyword>  <keyword>In-Reply-To</keyword>  <keyword>References</keyword>  <keyword>Subject</keyword>  <keyword>Comments</keyword>  <keyword>Keywords</keyword>  <keyword>Resent-Date</keyword>  <keyword>Resent-From</keyword>  <keyword>Resent-Sender</keyword>  <keyword>Resent-To</keyword>  <keyword>Resent-Cc</keyword>  <keyword>Resent-Bcc</keyword>  <keyword>Resent-Reply-To</keyword>  <keyword>Resent-Message-ID</keyword>  <keyword>Return-Path</keyword>  <keyword>Received</keyword></bibitem>
+<bibitem id="RFC5545" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5545</uri>  <docidentifier type="IETF" primary="true">RFC 5545</docidentifier>  <docidentifier type="DOI">10.17487/RFC5545</docidentifier>  <docnumber>RFC5545</docnumber>  <date type="published">    <on>2009-09</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">B. Desruisseaux</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_25fcadb8-a9ac-5268-054f-a7db90e68a30">This document defines the iCalendar data format for representing and exchanging calendaring and scheduling information such as events, to-dos, journal entries, and free/busy information, independent of any particular calendar service or protocol. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5545</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>calsify</keyword>  <keyword>calsched</keyword>  <keyword>calsch</keyword>  <keyword>caldav</keyword>  <keyword>calendar</keyword>  <keyword>calendaring</keyword>  <keyword>meeting</keyword>  <keyword>event</keyword>  <keyword>task</keyword>  <keyword>to-do</keyword>  <keyword>journal</keyword>  <keyword>appointment</keyword>  <keyword>agenda</keyword>  <keyword>schedule</keyword>  <keyword>scheduling</keyword>  <keyword>ical</keyword>  <keyword>icalendar</keyword>  <keyword>itip</keyword>  <keyword>imip</keyword>  <keyword>text/calendar</keyword>  <keyword>ischedule</keyword>  <keyword>xCalendar</keyword></bibitem>
+<bibitem id="RFC5546" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">iCalendar Transport-Independent Interoperability Protocol (iTIP)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5546</uri>  <docidentifier type="IETF" primary="true">RFC 5546</docidentifier>  <docidentifier type="DOI">10.17487/RFC5546</docidentifier>  <docnumber>RFC5546</docnumber>  <date type="published">    <on>2009-12</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">C. Daboo</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_821fce7c-2b87-d754-e104-5feb05397493">This document specifies a protocol that uses the iCalendar object specification to provide scheduling interoperability between different calendaring systems. This is done without reference to a specific transport protocol so as to allow multiple methods of communication between systems. Subsequent documents will define profiles of this protocol that use specific, interoperable methods of communication between systems.</p>
+    <p id="_452b94a5-a2e6-1aef-d894-986684915621">The iCalendar Transport-Independent Interoperability Protocol (iTIP) complements the iCalendar object specification by adding semantics for group scheduling methods commonly available in current calendaring systems. These scheduling methods permit two or more calendaring systems to perform transactions such as publishing, scheduling, rescheduling, responding to scheduling requests, negotiating changes, or canceling. [STANDARDS-TRACK]</p>
+  </abstract>  <relation type="updates">    <bibitem>      <formattedref format="text/plain">RFC5545</formattedref>      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5546</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>calendar</keyword>  <keyword>scheduling</keyword></bibitem>
+<bibitem id="RFC5646" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">Tags for Identifying Languages</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5646</uri>  <docidentifier type="IETF" primary="true">RFC 5646</docidentifier>  <docidentifier type="DOI">10.17487/RFC5646</docidentifier>  <docnumber>RFC5646</docnumber>  <date type="published">    <on>2009-09</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">A. Phillips</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">M. Davis</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_91e6667b-ead1-6dff-0372-bfaac3cae04b">This document describes the structure, content, construction, and semantics of language tags for use in cases where it is desirable to indicate the language used in an information object. It also describes how to register values for use in language tags and the creation of user-defined extensions for private interchange. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</p>
+  </abstract>  <series>    
+<title format="text/plain">BCP</title>
+    <number>47</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5646</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>language tags</keyword>  <keyword>private interchange</keyword></bibitem>
+<bibitem id="RFC5870" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">A Uniform Resource Identifier for Geographic Locations (‘geo’ URI)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5870</uri>  <docidentifier type="IETF" primary="true">RFC 5870</docidentifier>  <docidentifier type="DOI">10.17487/RFC5870</docidentifier>  <docnumber>RFC5870</docnumber>  <date type="published">    <on>2010-06</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">A. Mayrhofer</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">C. Spanring</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_c2621aeb-095d-ae43-f424-ae04fd212527">This document specifies a Uniform Resource Identifier (URI) for geographic locations using the ‘geo\’ scheme name. A ‘geo’ URI identifies a physical location in a two- or three-dimensional coordinate reference system in a compact, simple, human-readable, and protocol-independent way. The default coordinate reference system used is the World Geodetic System 1984 (WGS-84). [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5870</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>geography</keyword>  <keyword>geo</keyword>  <keyword>uri</keyword>  <keyword>scheme</keyword></bibitem>
+<bibitem id="RFC6351" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title type="main" format="text/plain">xCard: vCard XML Representation</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc6351</uri>  <docidentifier type="IETF" primary="true">RFC 6351</docidentifier>  <docidentifier type="DOI">10.17487/RFC6351</docidentifier>  <docnumber>RFC6351</docnumber>  <date type="published">    <on>2011-08</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">S. Perreault</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_3be49ab8-6c3b-8b61-7fa8-e341ed371831">This document defines the XML schema of the vCard data format. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>6351</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>vCard</keyword></bibitem>
+<bibitem id="W3C.REC-xml-20081126" type="standard" schema-version="v1.2.7">  <fetched>2024-01-08</fetched>  
+<title format="text/plain">Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
+  <uri type="src">https://www.w3.org/TR/2008/REC-xml-20081126/</uri>  <docidentifier type="W3C" primary="true">W3C REC-xml-20081126</docidentifier>  <docnumber>REC-xml-20081126</docnumber>  <date type="published">    <on>2008-11-26</on>  </date>  <contributor>    <role type="publisher"/>    <organization>      
+<name>World Wide Web Consortium</name>
+      <abbreviation>W3C</abbreviation>      <uri>https://www.w3.org/</uri>    </organization>  </contributor>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">Eve Maler</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">François Yergeau</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">Jean Paoli</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">Michael Sperberg-McQueen</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">Tim Bray</completename>      </name>
+    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <status>    <stage>recommendation</stage>  </status>  <relation type="obsoletes">    <bibitem>      <formattedref format="text/plain">W3C PER-xml-20080205</formattedref>      <docidentifier type="W3C" primary="true">W3C PER-xml-20080205</docidentifier>    </bibitem>
+  </relation>  <relation type="updatedBy">    <description format="text/plain">errata</description>    <bibitem>      <formattedref format="text/plain">W3C xml-V10-5e-errata</formattedref>      <docidentifier type="W3C" primary="true">W3C xml-V10-5e-errata</docidentifier>    </bibitem>
+  </relation>  <relation type="editionOf">    <bibitem>      <formattedref format="text/plain">W3C REC-xml-20060816</formattedref>      <docidentifier type="W3C" primary="true">W3C REC-xml-20060816</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">W3C REC</title>
+    <number>REC-xml-20081126</number>  </series></bibitem>
+<bibitem id="xfn"><formattedref format="application/x-isodoc+xml">T. Celik, M. Mullenweg, E. Meyer. <em>XFN 1.1 profile.</em> <link target="http://gmpg.org/xfn/11"/></formattedref><docidentifier>XFN</docidentifier></bibitem>
+</references></bibliography>
+</generic-standard>

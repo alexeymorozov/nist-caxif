@@ -1,0 +1,1694 @@
+
+<!DOCTYPE html>
+<html lang="en" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style>
+  <!--
+/*
+    0 CSS RESET
+*/
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  border: 0;
+  font-size: 100%; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, tt, var,
+b, u, i, center,
+dl, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  vertical-align: baseline; }
+
+html, body, div, span, applet, object, iframe,
+p, blockquote,
+a, abbr, acronym, address, big, cite,
+del, dfn, em, img, ins, q, s,
+small, strike, strong, sub, sup, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  font-family: "Overpass", sans-serif; }
+
+code, pre, tt, kbd, samp {
+  font-family: "Space Mono", monospace;
+  font-variant-ligatures: none; }
+
+code *, pre *, tt *, kbd *, samp * {
+  font-family: "Space Mono", monospace !important;
+  font-variant-ligatures: none; }
+
+p code, dt code, li code, label code, legend code, caption code, th code, td code,
+p tt, dt tt, li tt, label tt, legend tt, caption tt, th tt, td tt,
+p kbd, dt kbd, li kbd, label kbd, legend kbd, caption kbd, th kbd, td kbd,
+p samp, dt samp, li samp, label samp, legend samp, caption samp, th samp, td samp {
+  font-size: 0.8em; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Overpass", sans-serif; }
+
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Overpass", sans-serif; }
+
+blockquote, q {
+  quotes: none; }
+  blockquote::before, blockquote::after, q::before, q::after {
+    content: '';
+    content: none; }
+
+.h2Annex {
+  font-family: "Overpass", sans-serif; }
+
+dl {
+  display: grid;
+  grid-template-columns: max-content auto; }
+  dl dt p, dl dd p {
+    margin-top: 0; }
+  dl dt {
+    grid-column-start: 1; }
+  dl dd {
+    grid-column-start: 2; }
+
+b, strong {
+  font-weight: bold; }
+
+div.document-stage-band, div.document-type-band {
+  background-color: #333333; }
+
+a.FootnoteRef + a.FootnoteRef::before {
+  content: ", ";
+  vertical-align: super; }
+
+a.TableFootnoteRef + a.TableFootnoteRef::before {
+  content: ", ";
+  vertical-align: super; }
+
+a.TableFootnoteRef, span.TableFootnoteRef,
+a.FootnoteRef, span.FootnoteRef {
+  vertical-align: super; }
+
+.addition {
+  color: blue; }
+
+.deletion {
+  color: red;
+  text-decoration: line-through; }
+
+ruby {
+  ruby-position: over;
+  -webkit-ruby-position: before; }
+
+ruby ruby {
+  ruby-position: under;
+  -webkit-ruby-position: after; }
+
+/* code highlighting with line numbers */
+table.rouge-line-table td.rouge-gutter {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  padding-right: 1em; }
+
+table.rouge-line-table td.rouge-code {
+  -moz-user-select: all;
+  -ms-user-select: all;
+  -webkit-user-select: all;
+  user-select: all; }
+
+table.rouge-line-table,
+table.rouge-line-table th,
+table.rouge-line-table td {
+  width: auto;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-size: 100%; }
+
+table.rouge-line-table pre {
+  margin: 0;
+  padding: 0;
+  overflow-x: visible;
+  font-size: 100%; }
+
+#standard-band {
+  background-color: #0AC442; }
+
+#standard {
+  border-bottom: solid 3px #0AC442; }
+
+#directive-band {
+  background-color: #540D6E; }
+
+#directive {
+  border-bottom: solid 3px #540D6E; }
+
+#guide-band {
+  background-color: #D183C9; }
+
+#guide {
+  border-bottom: solid 3px #D183C9; }
+
+#specification-band {
+  background-color: #65AFFF; }
+
+#specification {
+  border-bottom: solid 3px #65AFFF; }
+
+#report-band {
+  background-color: #3A405A; }
+
+#report {
+  border-bottom: solid 3px #3A405A; }
+
+#amendment-band {
+  background-color: #F26430; }
+
+#amendment {
+  border-bottom: solid 3px #F26430; }
+
+#corrigendum-band {
+  background-color: #C84630; }
+
+#corrigendum {
+  border-bottom: solid 3px #C84630; }
+
+#administrative-band {
+  background-color: #BFAE48; }
+
+#administrative {
+  border-bottom: solid 3px #BFAE48; }
+
+#advisory-band {
+  background-color: #BD9391; }
+
+#advisory {
+  border-bottom: solid 3px #BD9391; }
+
+#proposal-band {
+  background-color: #39A0ED; }
+
+#proposal {
+  border-bottom: solid 3px #39A0ED; }
+
+#working-draft-band {
+  background-color: #2D7393; }
+
+#working-draft {
+  border-bottom: solid 3px #2D7393; }
+
+#committee-draft-band {
+  background-color: #2A6B7C; }
+
+#committee-draft {
+  border-bottom: solid 3px #2A6B7C; }
+
+#draft-standard-band {
+  background-color: #1C7F7A; }
+
+#draft-standard {
+  border-bottom: solid 3px #1C7F7A; }
+
+#final-draft-band {
+  background-color: #53C170; }
+
+#final-draft {
+  border-bottom: solid 3px #53C170; }
+
+#published-band {
+  background-color: #069E2D; }
+
+#published {
+  border-bottom: solid 3px #069E2D; }
+
+#withdrawn-band {
+  background-color: #004E64; }
+
+#withdrawn {
+  border-bottom: solid 3px #004E64; }
+
+#cancelled-band {
+  background-color: #2E382E; }
+
+#cancelled {
+  border-bottom: solid 3px #2E382E; }
+
+body {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.4em;
+  color: #1d1d1d;
+  background-color: #ffffff; }
+  body main {
+    margin: 0 3em 0 6em; }
+
+main {
+  margin: 0 3em 0 6em; }
+
+#toc, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+  font-family: "Overpass", sans-serif;
+  font-weight: 400; }
+  #toc ul, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+    #toc ul li a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) ul li a {
+      padding: 5px 10px; }
+    #toc ul a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) ul a {
+      color: #485094;
+      text-decoration: none;
+      display: block; }
+      #toc ul a:hover, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) ul a:hover {
+        box-shadow: none;
+        color: #485094; }
+  #toc .h2, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .h2 {
+    padding-left: 30px; }
+  #toc .h3, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .h3 {
+    padding-left: 50px; }
+  #toc .h4, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .h4 {
+    padding-left: 70px; }
+  #toc .h5, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .h5 {
+    padding-left: 90px; }
+  #toc .h6, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .h6 {
+    padding-left: 110px; }
+  #toc .toc-active, #toc li:hover, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .toc-active, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) li:hover {
+    background: #1661AD;
+    box-shadow: inset -5px 0px 10px -5px #1661AD !important; }
+    #toc .toc-active a, #toc li:hover a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .toc-active a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) li:hover a {
+      color: #485094; }
+  @media print {
+    #toc .toc-active, #toc li:hover, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .toc-active, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) li:hover {
+      background: white;
+      box-shadow: none !important; }
+    #toc .toc-active a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .toc-active a {
+      color: #485094; }
+    #toc li:hover a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) li:hover a {
+      color: black; } }
+  @media screen and (max-width: 768px) {
+    #toc, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+      padding: 0 1.5em;
+      overflow: visible; } }
+  #toc .toc-active a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) .toc-active a {
+    color: white; }
+  #toc li a, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) li a {
+    text-transform: uppercase; }
+  #toc ul a:hover, #toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) ul a:hover {
+    box-shadow: none;
+    color: white; }
+
+#toc > ul :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 100%; }
+
+@media screen and (min-width: 768px) {
+  nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 323px;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0 0 0 45px;
+    background-color: #f7f7f7; } }
+
+@media print {
+  nav {
+    position: relative;
+    width: auto;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0;
+    margin-right: 0;
+    background-color: white; } }
+
+@media screen and (min-width: 768px) {
+  #toggle {
+    position: fixed;
+    height: 100%;
+    width: 30px;
+    background-color: #1661AD;
+    color: white !important;
+    cursor: pointer;
+    z-index: 100; }
+    #toggle span {
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%); } }
+
+@media screen and (max-width: 768px) {
+  #toggle {
+    display: none; } }
+
+@media print {
+  #toggle {
+    display: none; } }
+
+#myBtn {
+  font-family: "Space Mono", monospace;
+  font-variant-ligatures: none;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color: #1f8ca0;
+  opacity: 0.15;
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  border-radius: 4px;
+  text-transform: uppercase; }
+  #myBtn:hover {
+    opacity: 1; }
+  @media print {
+    #myBtn {
+      display: none; } }
+  #myBtn a.anchorjs-link:hover {
+    background: none;
+    color: #485094;
+    box-shadow: none; }
+
+/*
+    2. Responsive navigation layout
+*/
+@media screen and (min-width: 768px) {
+  .container {
+    padding-left: 360px; }
+  .rule.toc {
+    display: none; }
+  h1.toc-contents {
+    margin-top: 1em; }
+  ul#toc-list, ul#toc-list > :is(.h1, .h2, .h3, .h4, .h5, .h6) {
+    padding: 0;
+    margin: 0; } }
+
+div.figure {
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto; }
+  div.figure .FigureTitle, div.figure .figure-title {
+    font-weight: 700;
+    font-size: 1em;
+    text-align: center; }
+  div.figure > img, div.figure > svg {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 100%;
+    height: auto; }
+
+table div.figure {
+  padding: 0;
+  margin: 0; }
+
+/*
+    Document types + stages
+*/
+.document-type-band {
+  left: 0;
+  top: 180px;
+  height: 100%;
+  position: fixed;
+  display: block;
+  z-index: 102; }
+  .document-type-band > :first-child {
+    position: relative;
+    width: 25px;
+    font-weight: 400;
+    height: 100%;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin: 0;
+    margin-left: 6px;
+    writing-mode: tb-rl;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    white-space: nowrap;
+    display: block;
+    bottom: 0; }
+  @media print {
+    .document-type-band {
+      display: none; } }
+.document-stage-band {
+  left: 0;
+  top: 0;
+  height: 100%;
+  position: fixed;
+  display: block;
+  z-index: 101;
+  box-shadow: -5px 0px 10px #1d1d1d; }
+  .document-stage-band > :first-child {
+    position: relative;
+    width: 25px;
+    font-weight: 400;
+    height: 150;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    margin: 0;
+    margin-left: 6px;
+    writing-mode: tb-rl;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    white-space: nowrap;
+    display: block;
+    bottom: 0; }
+  @media print {
+    .document-stage-band {
+      display: none; } }
+p.document-type,
+p.document-stage {
+  position: relative;
+  width: 25px;
+  font-weight: 400;
+  height: 150;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin: 0;
+  margin-left: 6px;
+  writing-mode: tb-rl;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  white-space: nowrap;
+  display: block;
+  bottom: 0; }
+
+#governance-band p.document-type {
+  height: 230px !important; }
+
+p.document-stage {
+  font-weight: 300;
+  height: 160px; }
+
+#standard-band p {
+  height: 270px; }
+
+#proposal-band p {
+  height: 150px; }
+
+#standard-band, #published-band {
+  background-color: #9ABD48; }
+
+#standard, #published {
+  border-bottom: solid 3px #9ABD48; }
+
+#governance, #policy-and-procedures {
+  border-bottom: solid 3px #750697; }
+
+#governance-band, #policy-and-procedures-band {
+  background-color: #750697; }
+
+#guide {
+  border-bottom: solid 3px #48a0e7; }
+
+#guide-band {
+  background-color: #48a0e7; }
+
+.coverpage-maturity {
+  font-family: "Overpass", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0 0 2em 0;
+  text-transform: uppercase; }
+
+#working-draft, #proposal {
+  border-bottom: solid 3px #F7803C; }
+
+#working-draft-band, #proposal-band {
+  background-color: #F7803C; }
+
+#committee-draft {
+  border-bottom: solid 3px #fd06fd; }
+
+#committee-draft-band {
+  background-color: #fd06fd; }
+
+#draft-standard {
+  border-bottom: solid 3px #fdf906; }
+
+#draft-standard-band {
+  background-color: #fdf906; }
+
+#standard {
+  border-bottom: solid 3px #9ABD48; }
+
+#standard-band {
+  background-color: #9ABD48; }
+
+#obsolete {
+  border-bottom: solid 3px #7e0d13; }
+
+#obsolete-band {
+  background-color: #7e0d13; }
+
+/*
+    3. TYPOGRAPHY
+*/
+/*
+    3.1 Titles
+*/
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Overpass", sans-serif;
+  color: #1661AD;
+  font-weight: 300;
+  margin-top: 1.6em;
+  margin-bottom: 0.3em; }
+
+h1, .h1 {
+  font-size: 1.6em;
+  text-transform: uppercase;
+  margin-top: 2em; }
+
+h1#content, #content.h1 {
+  margin-top: 2em; }
+
+h2, .h2 {
+  margin-top: 1.3em;
+  font-size: 1.3em;
+  font-weight: 400; }
+
+h3, .h3 {
+  margin-top: 1.1em;
+  font-size: 1.1em;
+  font-weight: 100; }
+
+.TermNum {
+  font-weight: 100; }
+
+.TermNum, .Terms, .AltTerms {
+  color: #1661AD; }
+
+h2.TermNum {
+  margin-bottom: 0; }
+
+p.Terms {
+  font-size: 1.1em;
+  line-height: 1.5em;
+  margin: 0; }
+
+p.AltTerms {
+  /*
+  font-style: italic;
+    */
+  font-size: 1.1em;
+  margin: 0; }
+
+.contact-info a:hover {
+  color: #485094;
+  text-decoration: underline;
+  background: none;
+  box-shadow: 0 0 0 0; }
+
+/*
+  3.2 Links
+*/
+a, a:visited {
+  text-decoration: none;
+  color: #485094; }
+
+a:hover {
+  color: white;
+  background: #1661AD;
+  box-shadow: 3px 0 0 #1661AD, -3px 0 0 #1661AD; }
+
+*::selection {
+  background: #1661AD;
+  color: white; }
+
+*::-moz-selection {
+  background: #1661AD;
+  color: white; }
+
+/*
+    3.3 Lists
+*/
+ul, ol {
+  margin-left: 1.2em; }
+
+ul li {
+  list-style: none; }
+
+ul > li::before {
+  content: "\2014";
+  display: inline-block;
+  width: 1em;
+  margin-left: -1.2em; }
+
+ul > li p:first-child {
+  display: inline; }
+
+ul > li:first-child {
+  margin-top: 1em; }
+
+ul ul > li:first-child {
+  margin-top: 0; }
+
+ol ul > li:first-child {
+  margin-top: 0; }
+
+#toc-list ul {
+  margin-bottom: 0.25em; }
+
+#toc-list li {
+  list-style-type: none; }
+
+#toc li::before {
+  content: " ";
+  display: none; }
+
+/*
+    3.4 Rules
+*/
+.rule {
+  width: 100%;
+  height: 1px;
+  background-color: #0e1a85;
+  margin: 2em 0; }
+
+/*
+    3.5 Bibliograhy
+*/
+p.Biblio, p.NormRef {
+  margin-top: 1em;
+  margin-left: 2em; }
+
+/*
+    3.6 Source Code + figures
+*/
+.figure, pre, .pseudocode {
+  background-color: #f7f7f7;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto; }
+  .figure .SourceTitle, pre .SourceTitle, .pseudocode .SourceTitle {
+    font-weight: 700;
+    font-size: 1em;
+    text-align: center; }
+
+pre {
+  font-family: "Space Mono", monospace;
+  font-variant-ligatures: none; }
+
+.AdmonitionTitle {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center; }
+
+.RecommendationTitle {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center; }
+
+.ListTitle {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center;
+  text-align: left; }
+
+.FigureTitle, .SourceTitle {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center; }
+
+/*
+    3.7 Notes
+*/
+.Note {
+  background-color: #fff495;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 1em 0 1em 0; }
+  .Note p {
+    margin: 0; }
+
+.Admonition {
+  background-color: #ffcccc;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 1em 0 1em 0; }
+  .Admonition p {
+    margin: 0; }
+
+/*
+    3.8 Examples
+*/
+.example {
+  background-color: #e1eef1;
+  padding: 1.2em;
+  margin: 2em 0 1em 0;
+  text-align: left;
+  color: #424242;
+  padding-left: 2.7em; }
+  .example p {
+    margin: 0; }
+  .example .example-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: -1.5em; }
+  .example .example-title {
+    margin-top: 0; }
+  .example pre,
+  .example .pseudocode {
+    background: none; }
+
+/*
+    3.9 Tables
+*/
+table {
+  width: 100%;
+  font-weight: 300;
+  margin: 1em 0 2em 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2em; }
+  table, table th, table td {
+    border: 1px solid black;
+    font-size: 0.95em; }
+  table th, table td {
+    padding: 1em; }
+  table td.header {
+    font-weight: 400; }
+
+p.TableTitle {
+  text-align: center;
+  margin-top: 2.5em;
+  font-weight: 400; }
+
+/*
+  3.10 Footnotes
+*/
+a.footnote-number {
+  vertical-align: super;
+  font-size: 0.8em; }
+
+.footnote {
+  font-size: 0.9em; }
+
+/*
+    3.11 Blockquotes
+*/
+.Quote {
+  background-color: #f7f7f7;
+  font-style: italic;
+  width: 80%;
+  padding: 1.5em;
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto; }
+
+/*
+    3.12 Formulas
+*/
+.formula {
+  background-color: #f7f7f7;
+  padding: 1.5em;
+  margin-top: 2em;
+  text-align: center; }
+
+/*
+    3.13 Contact Info
+*/
+.contact-info {
+  padding: 2em;
+  margin-top: 5em;
+  width: 250px;
+  text-align: left;
+  border: #1661AD solid 2px;
+  color: #1661AD !important;
+  border-radius: 25px; }
+
+.contact-info a,
+.contact-info a:hover {
+  color: #1661AD; }
+
+.contact-info p, .contact-info a {
+  font-family: "Space Mono", monospace;
+  font-variant-ligatures: none;
+  font-weight: 400; }
+
+.contact-info .name {
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-bottom: 0; }
+
+.contact-info .address {
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-top: 0; }
+
+/*
+    Keywords
+*/
+span.keyword {
+  font-weight: 600; }
+
+/*
+    Paragraphs
+*/
+p {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+h2 p {
+  display: inline; }
+
+/*
+    4.0 Page header
+*/
+/*
+    4.1 Top Logo
+*/
+.icon-svg {
+  width: 100%;
+  color: #5ecf86; }
+
+.wrapper-top {
+  background: linear-gradient(200deg, #0f365e, #1661AD);
+  color: #ffffff;
+  padding: 2em 0;
+  width: 100%; }
+
+.wrapper-top-bottom {
+  width: 0;
+  height: 0;
+  border-top: 100px solid #1661AD;
+  border-right: 100px solid transparent;
+  position: absolute; }
+
+.doc-number {
+  font-size: 0.5em;
+  font-family: "Overpass", sans-serif; }
+
+.coverpage-title {
+  padding-bottom: 0.5em;
+  font-family: "Overpass", sans-serif;
+  font-size: 1.2em;
+  line-height: 1.5em;
+  font-weight: 100;
+  padding-left: 1em;
+  padding-right: 1em;
+  text-transform: uppercase; }
+
+.WordSection11 {
+  padding: 0 2em 0 3em; }
+
+.info-section {
+  padding: 0 2em 0 5em; }
+
+.prefatory-section {
+  padding: 0 3em 0 6em; }
+
+.zzSTDTitle1, .MsoCommentText {
+  display: none; }
+
+.coverpage {
+  text-align: center;
+  padding-left: 1.5em; }
+
+.coverpage-logo span, .coverpage-tc-name span {
+  font-family: "Overpass", sans-serif;
+  text-transform: none;
+  font-weight: 300; }
+
+.coverpage-tc-name {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin: 0.25em 0; }
+
+/*
+    4.2 Document Identity
+*/
+.coverpage-doc-identity {
+  font-size: 2em;
+  line-height: 2em; }
+
+.coverpage-title .title-second {
+  display: none; }
+
+.coverpage-stage-block {
+  font-family: "Overpass", sans-serif;
+  font-weight: 600;
+  font-size: 1.25em;
+  margin: 2em 0em 2em 0em;
+  text-transform: uppercase; }
+
+/*
+    4.3 Draft Warning
+*/
+.coverpage-warning {
+  border: #f36f36 solid 2px;
+  color: #f36f36 !important;
+  margin: 1em 2em;
+  color: #485094;
+  padding: 2em 1em 1em 1em;
+  border-radius: 25px; }
+
+.coverpage-warning .title {
+  font-family: "Overpass", sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 1.2em; }
+
+/*
+    4.4 Copyright
+*/
+.copyright {
+  padding: 1em;
+  font-size: 0.9em;
+  text-align: left; }
+
+/*  .copyright .name, .copyright .address {color: #485094;} */
+/*
+    5.0 Other styles
+*/
+/*
+To top button
+*/
+@page {
+  margin: 2cm 1cm; }
+
+@media print {
+  .document-info, nav, .copyright {
+    page-break-before: always; }
+  nav {
+    page-break-after: always; }
+  h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
+    page-break-after: avoid;
+    margin-top: 1.2em; }
+  .note, .figure, pre, .pseudocode, table {
+    page-break-inside: avoid; }
+  .info-section {
+    display: none; }
+  .coverpage {
+    height: 23cm; }
+  .wrapper-top {
+    top: 0;
+    padding-top: 4cm;
+    padding-bottom: 4cm; }
+  .wrapper-top-bottom {
+    margin-top: -5px; }
+  button#myBtn {
+    background-color: white; }
+  .container {
+    padding-left: 0; }
+  h1.content, .h1.content {
+    margin-top: 2em;
+    line-height: 2.5em; }
+  h1, .h1 {
+    font-size: 1.5em;
+    line-height: 1.5; }
+  h2, .h2 {
+    font-size: 1.2em; }
+  h3, .h3 {
+    font-size: 1em; }
+  .Note {
+    background-color: #fff495;
+    color: #47430c;
+    padding: 5px;
+    margin: 2em 0 1em 0; }
+  .Note p {
+    padding: 0 5px 0 5px; }
+  .Admonition {
+    background-color: #ffcccc;
+    color: #47430c;
+    padding: 5px;
+    margin: 2em 0 1em 0; }
+  .Admonition p {
+    padding: 0 5px 0 5px; }
+  .wrapper-top-bottom {
+    display: none; } }
+
+-->
+</style><style><!--pre.sourcecode table td { padding: 5px; }
+pre.sourcecode table pre { margin: 0; }
+pre.sourcecode, pre.sourcecode .w {
+  color: #444444;
+}
+pre.sourcecode .cp {
+  color: #CC00A3;
+}
+pre.sourcecode .cs {
+  color: #CC00A3;
+}
+pre.sourcecode .c, pre.sourcecode .ch, pre.sourcecode .cd, pre.sourcecode .cm, pre.sourcecode .cpf, pre.sourcecode .c1 {
+  color: #FF0000;
+}
+pre.sourcecode .kc {
+  color: #C34E00;
+}
+pre.sourcecode .kd {
+  color: #0000FF;
+}
+pre.sourcecode .kr {
+  color: #007575;
+}
+pre.sourcecode .k, pre.sourcecode .kn, pre.sourcecode .kp, pre.sourcecode .kt, pre.sourcecode .kv {
+  color: #0000FF;
+}
+pre.sourcecode .s, pre.sourcecode .sb, pre.sourcecode .sc, pre.sourcecode .ld, pre.sourcecode .sd, pre.sourcecode .s2, pre.sourcecode .se, pre.sourcecode .sh, pre.sourcecode .si, pre.sourcecode .sx, pre.sourcecode .sr, pre.sourcecode .s1, pre.sourcecode .ss {
+  color: #009C00;
+}
+pre.sourcecode .sa {
+  color: #0000FF;
+}
+pre.sourcecode .nb, pre.sourcecode .bp {
+  color: #C34E00;
+}
+pre.sourcecode .nt {
+  color: #0000FF;
+}
+
+--></style><title>vCard Format Specification</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!--TOC script import-->
+<script type="text/javascript" src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
+<script type="text/javascript">function toclevel() { return "h1:not(:empty):not(.TermNum):not(.noTOC),h2:not(:empty):not(.TermNum):not(.noTOC)";}
+</script>
+
+<!--Google fonts-->
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+
+<!--Font awesome import for the link icon-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous" />
+<style class="anchorjs"></style>
+</head><body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container"><div class="title-section"><div class="document-stage-band" id="published-band">
+    <p class="document-stage">Published</p>
+</div>
+
+<div class="document-type-band" id="standard-band">
+  <p class="document-type">NIST CAXIF Standard</p>
+</div>
+
+
+
+  <div id="toggle"> <span>•</span> </div>
+
+  <header>
+
+<!--<div class="WordSection1">-->
+  <div class="coverpage">
+    <div class="wrapper-top">
+
+  <div class="coverpage-doc-identity">
+    <div class="doc-number">
+      <span class="docnumber">NIST CAXIF RFC 6350</span>
+      <span class="docnumber-separator">:</span>
+      <span class="docyear">2024 </span>
+    </div>
+
+    <div class="coverpage-title">
+      <span class="title-first">vCard Format Specification</span>
+      <!--<span class="title-second"></span>-->
+    </div>
+  </div>
+
+  <div class="coverpage-logo">
+    <span>My Organization name 2024</span>
+  </div>
+
+  <div class="coverpage-tc-name">
+    <span></span>
+  </div>
+  </div>
+
+    <div class="wrapper-top-bottom"></div>
+
+  <div class="WordSection11">
+  <div class="coverpage-stage-block">
+    <span class="coverpage-stage" id="standard">NIST CAXIF Standard</span>
+  </div>
+
+  <div class="coverpage-stage-block">
+    <p><span class="coverpage-maturity" id="published">Published</span></p>
+
+</div>
+
+
+
+
+
+
+
+<div class="info-section">
+<div class="copyright">
+  <p class="year">
+  © 2024 My Organization name
+  </p>
+
+  <p class="message">
+    All rights reserved. Unless otherwise specified, no part of this
+    publication may be reproduced or utilized otherwise in any form or by any
+    means, electronic or mechanical, including photocopying, or posting on the
+    internet or an intranet, without prior written permission. Permission can
+    be requested from the address below.
+  </p>
+
+<div class="contact-info">
+  <p class="name">My Organization name</p>
+  <p class="address">
+    Suite 1, 8/F, New Henry House<br />
+    10 Ice House Street<br />
+    Central<br />
+    Hong Kong<br />
+    <br />
+    <a href="mailto:copyright@ribose.com">copyright@ribose.com</a><br />
+    <a href="open.ribose.com">www.ribose.com</a>
+  </p>
+</div>
+</div>
+
+<div class="rule"></div>
+</div>
+  </div>
+
+
+</div>
+</header></div><br /><div class="prefatory-section"><nav>
+  <h1 id="content">Contents</h1>
+  <div id="toc"><h1 class="IntroTitle">Table of contents</h1><ul><li class="h1"><a href="#_167ae803-40a7-4ba1-a522-c4e969ce7c5d">      Foreword</a></li>
+<li class="h1"><a href="#_16366bc5-5282-4ebc-8252-89304a25b2ca">      Introduction</a></li>
+<li class="h2"><a href="#_79023275-a2b8-460c-8dc3-fe83cc580968">      General</a></li>
+<li class="h2"><a href="#_6f89e3f3-733b-4e20-8788-7085185a0c7f">      Conventions</a></li>
+<li class="h1"><a href="#_08e5a426-7714-4f6d-b98b-18a4b1f15552">      1.  Scope</a></li>
+<li class="h1"><a href="#_b47fc9aa-24c5-497d-b852-2d2f8477ba4b">      2.  Normative references</a></li>
+<li class="h1"><a href="#_7ae209b7-110d-4f8d-a937-f8ae789169bf">      3.  Terms and definitions</a></li>
+<li class="h1"><a href="#_9a365b12-9eb3-43e1-8356-1f27d9699893">      4.  vCard Format Specification</a></li>
+<li class="h2"><a href="#_feee1c65-9e5e-4177-b39d-c542ae8fad41">      4.1.  General</a></li>
+<li class="h2"><a href="#_74d66b27-e86a-4aa2-88e5-b4fd0d698cf5">      4.2.  Charset</a></li>
+<li class="h2"><a href="#_f7dc7ee2-c1ab-4ed5-aad5-2fa34034fa9e">      4.3.  Line Delimiting and Folding</a></li>
+<li class="h2"><a href="#_491cd912-03c9-4bb2-acd3-b78cbead582a">      4.4.  ABNF Format Definition</a></li>
+<li class="h2"><a href="#_d3c02ed0-1bd8-463c-bc30-a4d1fd3438bf">      4.5.  Property Value Escaping</a></li>
+<li class="h1"><a href="#_3c5d17a0-3021-4f78-88ea-84e3549bb8a7">      Annex A (normative) Differences from RFCs 2425 and 2426</a></li>
+<li class="h2"><a href="#_52112e00-e3ea-4ec3-9795-b7444a990b6d">      A.1.  New Structure</a></li>
+<li class="h2"><a href="#_c25eca6d-793e-47a6-a79f-ba56f6ac8f02">      A.2.  Removed Features</a></li>
+<li class="h2"><a href="#_ddbc911c-7235-46fe-bfd4-a034fed4fdd3">      A.3.  New Properties and Parameters</a></li></ul></div>
+
+</nav>
+
+
+<div class="rule toc"></div>
+</div><br /><main class="main-section"><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><br /><br /><div id="_b64d5d3c-5164-49cb-0527-91073072b594"><h1 class="ForewordTitle" id="_167ae803-40a7-4ba1-a522-c4e969ce7c5d">Foreword</h1><p id="_190b5948-839e-3816-9664-3c88305eb9bd">TBD</p></div><br /><div class="Section3" id="section1"><h1 class="IntroTitle" id="_16366bc5-5282-4ebc-8252-89304a25b2ca">Introduction</h1><div id="_general"><h2 id="_79023275-a2b8-460c-8dc3-fe83cc580968">General</h2>
+
+<p id="_cb791b13-4541-9b10-c9d7-d45d0aee312c">Electronic address books have become ubiquitous.  Their increased
+presence on portable, connected devices as well as the diversity of
+platforms that exchange contact data call for a standard.  This memo
+defines the vCard format, which allows the capture and exchange of
+information normally stored within an address book or directory
+application.</p>
+
+<p id="_d98185c5-6f3c-a726-a90b-7846e5d8de45">A high-level overview of the differences from <a href="#RFC2425">[RFC2425]</a> and <a href="#RFC2426">[RFC2426]</a> can
+be found in <a href="#appendixA">Annex A</a>.</p>
+</div><div id="_conventions"><h2 id="_6f89e3f3-733b-4e20-8788-7085185a0c7f">Conventions</h2>
+
+<p id="_748f39f6-05ed-8714-b774-1e2877d385cd">The key words “<span class="keyword">MUST</span>”, “<span class="keyword">MUST NOT</span>”, “<span class="keyword">REQUIRED</span>”, “<span class="keyword">SHALL</span>”, “<span class="keyword">SHALL NOT</span>”,
+“<span class="keyword">SHOULD</span>”, “<span class="keyword">SHOULD NOT</span>”, “<span class="keyword">RECOMMENDED</span>”, “<span class="keyword">NOT RECOMMENDED</span>”, “<span class="keyword">MAY</span>”, and
+“<span class="keyword">OPTIONAL</span>” in this document are to be interpreted as described in
+<a href="#RFC2119">IETF RFC 2119</a>.</p>
+</div></div><p class="zzSTDTitle1">vCard Format Specification</p><div id="_scope"><h1 id="_08e5a426-7714-4f6d-b98b-18a4b1f15552">1.  Scope</h1><p id="_3466034c-4b15-0197-e91d-4504803aa83e">This document defines the vCard data format for representing and
+exchanging a variety of information about individuals and other
+entities (e.g., formatted and structured name and delivery addresses,
+email address, multiple telephone numbers, photograph, logo, audio
+clips, etc.).  This document obsoletes <a href="#RFC2425">[RFC2425]</a>, <a href="#RFC2426">[RFC2426]</a>, and <a href="#RFC4770">[RFC4770]</a>, and
+updates <a href="#RFC2739">IETF RFC 2739</a>.</p></div><div><h1 id="_b47fc9aa-24c5-497d-b852-2d2f8477ba4b">2.  Normative references</h1>
+<p id="_bcd1cf39-fe43-6d8e-177c-0e6fba33c827">The following documents are referred to in the text in such a way that some or all of their content constitutes requirements of this document. For dated references, only the edition cited applies. For undated references, the latest edition of the referenced document (including any amendments) applies.</p>
+<p id="CCITT.X520.1988" class="NormRef">CCITT Recommendation X520, International Telephone and Telegraph Consultative Committee, <i>Information Technology — Open Systems Interconnection — The Directory: Selected Attribute Types.</i> 1988.</p>
+<p id="IEEE754" class="NormRef">IEEE ANSI/IEEE 754-1985 / IEEE ANSI/IEEE 754™-1985, Institute of Electrical and Electronics Engineers. <i>IEEE Standard for Binary Floating-Point Arithmetic</i>. 2019. <a href="https://ieeexplore.ieee.org/document/30711">https://ieeexplore.ieee.org/document/30711</a>.</p>
+<p id="ISO8601.2000" class="NormRef">ISO 8601:2000, International Organization for Standardization. <i>Data elements and interchange formats — Information interchange — Representation of dates and times</i>. 2nd edition. 2000. Geneva. <a href="https://www.iso.org/standard/26780.html">https://www.iso.org/standard/26780.html</a>.</p>
+<p id="ISO8601" class="NormRef">ISO 8601:2004, International Organization for Standardization. <i>Data elements and interchange formats — Information interchange — Representation of dates and times</i>. 3rd edition. 2004. Geneva. <a href="https://www.iso.org/standard/40874.html">https://www.iso.org/standard/40874.html</a>.</p>
+<p id="RFC2045" class="NormRef">IETF RFC 2045, N. FREED and N. BORENSTEIN. <i>Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies</i>. In: RFC. 1996. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc2045">https://www.rfc-editor.org/info/rfc2045</a>.</p>
+<p id="RFC2046" class="NormRef">IETF RFC 2046, N. FREED and N. BORENSTEIN. <i>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</i>. In: RFC. 1996. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc2046">https://www.rfc-editor.org/info/rfc2046</a>.</p>
+<p id="RFC2119" class="NormRef">IETF RFC 2119, S. BRADNER. <i>Key words for use in RFCs to Indicate Requirement Levels</i>. In: BCP. 1997. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>.</p>
+<p id="RFC2739" class="NormRef">IETF RFC 2739, T. SMALL, D. HENNESSY and F. DAWSON. <i>Calendar Attributes for vCard and LDAP</i>. In: RFC. 2000. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc2739">https://www.rfc-editor.org/info/rfc2739</a>.</p>
+<p id="RFC3629" class="NormRef">IETF RFC 3629, F. YERGEAU. <i>UTF-8, a transformation format of ISO 10646</i>. In: STD. 2003. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc3629">https://www.rfc-editor.org/info/rfc3629</a>.</p>
+<p id="RFC3966" class="NormRef">IETF RFC 3966, H. SCHULZRINNE. <i>The tel URI for Telephone Numbers</i>. In: RFC. 2004. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc3966">https://www.rfc-editor.org/info/rfc3966</a>.</p>
+<p id="RFC3986" class="NormRef">IETF RFC 3986, T. BERNERS-LEE, R. FIELDING and L. MASINTER. <i>Uniform Resource Identifier (URI): Generic Syntax</i>. In: STD. 2005. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>.</p>
+<p id="RFC4122" class="NormRef">IETF RFC 4122, P. LEACH, M. MEALLING and R. SALZ. <i>A Universally Unique IDentifier (UUID) URN Namespace</i>. In: RFC. 2005. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc4122">https://www.rfc-editor.org/info/rfc4122</a>.</p>
+<p id="RFC4288" class="NormRef">IETF RFC 4288, N. FREED and J. KLENSIN. <i>Media Type Specifications and Registration Procedures</i>. In: RFC. 2005. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc4288">https://www.rfc-editor.org/info/rfc4288</a>.</p>
+<p id="RFC5234" class="NormRef">IETF RFC 5234, P. OVERELL. <i>Augmented BNF for Syntax Specifications: ABNF</i>. In: STD. 2008. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc5234">https://www.rfc-editor.org/info/rfc5234</a>.</p>
+<p id="RFC5322" class="NormRef">IETF RFC 5322, P. RESNICK (ed.). <i>Internet Message Format</i>. In: RFC. 2008. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc5322">https://www.rfc-editor.org/info/rfc5322</a>.</p>
+<p id="RFC5545" class="NormRef">IETF RFC 5545, B. DESRUISSEAUX (ed.). <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. In: RFC. 2009. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc5545">https://www.rfc-editor.org/info/rfc5545</a>.</p>
+<p id="RFC5546" class="NormRef">IETF RFC 5546, C. DABOO (ed.). <i>iCalendar Transport-Independent Interoperability Protocol (iTIP)</i>. In: RFC. 2009. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc5546">https://www.rfc-editor.org/info/rfc5546</a>.</p>
+<p id="RFC5646" class="NormRef">IETF RFC 5646, A. PHILLIPS and M. DAVIS (eds.). <i>Tags for Identifying Languages</i>. In: BCP. 2009. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc5646">https://www.rfc-editor.org/info/rfc5646</a>.</p>
+<p id="RFC5870" class="NormRef">IETF RFC 5870, A. MAYRHOFER and C. SPANRING. <i>A Uniform Resource Identifier for Geographic Locations (‘geo’ URI)</i>. In: RFC. 2010. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc5870">https://www.rfc-editor.org/info/rfc5870</a>.</p>
+<p id="RFC6351" class="NormRef">IETF RFC 6351, S. PERREAULT. <i>xCard: vCard XML Representation</i>. In: RFC. 2011. RFC Publisher. <a href="https://www.rfc-editor.org/info/rfc6351">https://www.rfc-editor.org/info/rfc6351</a>.</p>
+<p id="W3C.REC-xml-20081126" class="NormRef">W3C REC-xml-20081126, EVE MALER, FRANÇOIS YERGEAU, JEAN PAOLI, MICHAEL SPERBERG-MCQUEEN and TIM BRAY (eds.). <i>Extensible Markup Language (XML) 1.0 (Fifth Edition)</i>. In: W3C REC. 2008. World Wide Web Consortium. <a href="https://www.w3.org/TR/2008/REC-xml-20081126/">https://www.w3.org/TR/2008/REC-xml-20081126/</a>.</p>
+<p id="xfn" class="NormRef">XFN, T. Celik, M. Mullenweg, E. Meyer. <i>XFN 1.1 profile.</i> <a href="http://gmpg.org/xfn/11">http://gmpg.org/xfn/11</a></p>
+</div><div id="_terms_and_definitions"><h1 id="_7ae209b7-110d-4f8d-a937-f8ae789169bf">3.  Terms and definitions</h1>
+<p id="_5195c285-daa8-8757-504c-cffd6830ca94">No terms and definitions are listed in this document.</p>
+
+</div><div id="section3"><h1 id="_9a365b12-9eb3-43e1-8356-1f27d9699893">4.  vCard Format Specification</h1><div id="_general_2"><h2 id="_feee1c65-9e5e-4177-b39d-c542ae8fad41">4.1.  General</h2>
+
+<p id="_8a7e3074-5de8-e06c-69ec-a9f0a7239291">The text/vcard MIME content type (hereafter known as “vCard”; see
+<a href="#section10_1">[section10_1]</a>) contains contact information, typically pertaining to a
+single contact or group of contacts.  The content consists of one or
+more lines in the format given below.</p>
+</div><div id="section3_1"><h2 id="_74d66b27-e86a-4aa2-88e5-b4fd0d698cf5">4.2.  Charset</h2>
+
+<p id="_c458461d-2c93-bc42-b11b-769e1aa59449">The charset (see <a href="#RFC3536">[RFC3536]</a> for internationalization terminology) for
+vCard is UTF-8 as defined in <a href="#RFC3629">IETF RFC 3629</a>.  There is no way to override
+this.  It is invalid to specify a value other than “UTF-8” in the
+“charset” MIME parameter (see <a href="#section10_1">[section10_1]</a>).</p>
+</div><div id="section3_2"><h2 id="_f7dc7ee2-c1ab-4ed5-aad5-2fa34034fa9e">4.3.  Line Delimiting and Folding</h2>
+
+<p id="_5bc551c3-f631-5970-21a5-a7864afdbe16">Individual lines within vCard are delimited by the <a href="#RFC5322">IETF RFC 5322</a> line
+break, which is a CRLF sequence (U+000D followed by U+000A).  Long
+logical lines of text can be split into a multiple-physical-line
+representation using the following folding technique.  Content lines
+<span class="keyword">SHOULD</span> be folded to a maximum width of 75 octets, excluding the line
+break.  Multi-octet characters <span class="keyword">MUST</span> remain contiguous.  The rationale
+for this folding process can be found in <a href="#RFC5322">IETF RFC 5322, Section 2.1.1</a>.</p>
+
+<p id="_ea13a571-0fe4-192b-33f7-e3d22caaf005">A logical line <span class="keyword">MAY</span> be continued on the next physical line anywhere
+between two characters by inserting a CRLF immediately followed by a
+single white space character (space (U+0020) or horizontal tab
+(U+0009)).  The folded line <span class="keyword">MUST</span> contain at least one character.  Any
+sequence of CRLF followed immediately by a single white space
+character is ignored (removed) when processing the content type.  For
+example, the line:</p>
+
+<div id="_6e377be6-5b37-570c-a944-ba3cabf68124" class="figure"><pre id="_7c63764c-36a7-5fa3-41d0-356a0b816fc6">  NOTE:This is a long description that exists on a long line.</pre><p class="FigureTitle" style="text-align:center;">Figure 1</p></div>
+
+<p id="_0e6d2775-c81e-3670-d340-9c0bb72e9e7c">can be represented as:</p>
+
+<div id="_7f48849e-9fd8-f429-3ad4-7fd958a84fb5" class="figure"><pre id="_0d7d0daa-07af-7b47-29a9-912d53bf81b7">  NOTE:This is a long description
+    that exists on a long line.</pre><p class="FigureTitle" style="text-align:center;">Figure 2</p></div>
+
+<p id="_ed5e3623-a448-5c72-5ee9-1a30c7d5346a">It could also be represented as:</p>
+
+<div id="_d9709445-5765-0e48-8dbd-e34f553805da" class="figure"><pre id="_c027625c-70ce-87aa-6e57-fada6353f329">  NOTE:This is a long descrip
+   tion that exists o
+   n a long line.</pre><p class="FigureTitle" style="text-align:center;">Figure 3</p></div>
+
+<p id="_cb062297-6f6c-07e2-8b51-0fa193b38230">The process of moving from this folded multiple-line representation
+of a property definition to its single-line representation is called
+unfolding.  Unfolding is accomplished by regarding CRLF immediately
+followed by a white space character (namely, HTAB (U+0009) or SPACE
+(U+0020)) as equivalent to no characters at all (i.e., the CRLF and
+single white space character are removed).</p>
+
+<p id="_4c5cd959-f917-4dbc-3a78-785053066a1f">Note: It is possible for very simple implementations to generate
+improperly folded lines in the middle of a UTF-8 multi-octet
+sequence.  For this reason, implementations <span class="keyword">SHOULD</span> unfold lines in
+such a way as to properly restore the original sequence.</p>
+
+<p id="_526f884d-9dd5-b7a4-9ab7-6a89654cd76f">Note: Unfolding is done differently than in <a href="#RFC5322">IETF RFC 5322</a>.  Unfolding
+in <a href="#RFC5322">IETF RFC 5322</a> only removes the CRLF, not the space following it.</p>
+
+<p id="_c494e701-c43c-c6ea-1988-3016d11d573c">Folding is done after any content encoding of a type value.
+Unfolding is done before any decoding of a type value in a content
+line.</p>
+</div><div id="section3_3"><h2 id="_491cd912-03c9-4bb2-acd3-b78cbead582a">4.4.  ABNF Format Definition</h2>
+
+<p id="_3d305c19-9f0f-a9b9-57ff-8b920b4cc660">The following ABNF uses the notation of <a href="#RFC5234">IETF RFC 5234</a>, which also defines
+CRLF, WSP, DQUOTE, VCHAR, ALPHA, and DIGIT.</p>
+
+<pre id="_b141cd3c-11fa-6b68-5027-735bd72c0f5d" class="sourcecode">vcard-entity = 1*vcard<br /><br />vcard = "BEGIN:VCARD" CRLF<br />        "VERSION:4.0" CRLF<br />        1*contentline<br />        "END:VCARD" CRLF<br />  ; A vCard object MUST include the VERSION and FN properties.<br />  ; VERSION MUST come immediately after BEGIN:VCARD.<br /><br />contentline = [group "."] name *(";" param) ":" value CRLF<br />  ; When parsing a content line, folded lines must first<br />  ; be unfolded according to the unfolding procedure<br />  ; described in Section 3.2.<br />  ; When generating a content line, lines longer than 75<br />  ; characters SHOULD be folded according to the folding<br />  ; procedure described in Section 3.2.<br /><br />group = 1*(ALPHA / DIGIT / "-")<br />name  = "SOURCE" / "KIND" / "FN" / "N" / "NICKNAME"<br />      / "PHOTO" / "BDAY" / "ANNIVERSARY" / "GENDER" / "ADR" / "TEL"<br />      / "EMAIL" / "IMPP" / "LANG" / "TZ" / "GEO" / "TITLE" / "ROLE"<br />      / "LOGO" / "ORG" / "MEMBER" / "RELATED" / "CATEGORIES"<br />      / "NOTE" / "PRODID" / "REV" / "SOUND" / "UID" / "CLIENTPIDMAP"<br />      / "URL" / "KEY" / "FBURL" / "CALADRURI" / "CALURI" / "XML"<br />      / iana-token / x-name<br />  ; Parsing of the param and value is based on the "name" as<br />  ; defined in ABNF sections below.<br />  ; Group and name are case-insensitive.<br /><br />iana-token = 1*(ALPHA / DIGIT / "-")<br />  ; identifier registered with IANA<br /><br />x-name = "x-" 1*(ALPHA / DIGIT / "-")<br />  ; Names that begin with "x-" or "X-" are<br />  ; reserved for experimental use, not intended for released<br />  ; products, or for use in bilateral agreements.<br /><br />param = language-param / value-param / pref-param / pid-param<br />      / type-param / geo-parameter / tz-parameter / sort-as-param<br />      / calscale-param / any-param<br />  ; Allowed parameters depend on property name.<br /><br />param-value = *SAFE-CHAR / DQUOTE *QSAFE-CHAR DQUOTE<br /><br />any-param  = (iana-token / x-name) "=" param-value *("," param-value)<br /><br />NON-ASCII = UTF8-2 / UTF8-3 / UTF8-4<br />  ; UTF8-{2,3,4} are defined in IETF RFC 3629<br /><br />QSAFE-CHAR = WSP / "!" / %x23-7E / NON-ASCII<br />  ; Any character except CTLs, DQUOTE<br /><br />SAFE-CHAR = WSP / "!" / %x23-39 / %x3C-7E / NON-ASCII<br />  ; Any character except CTLs, DQUOTE, ";", ":"<br /><br />VALUE-CHAR = WSP / VCHAR / NON-ASCII<br />  ; Any textual character</pre><p class="SourceTitle" style="text-align:center;">Figure 4</p>
+
+
+<p id="_9b4d9516-7d83-7282-91fb-6bb32ac1d615">A line that begins with a white space character is a continuation of
+the previous line, as described in <a href="#section3_2">Clause 4.3</a>.  The white space
+character and immediately preceeding CRLF should be discarded when
+reconstructing the original line.  Note that this line-folding
+convention differs from that found in <a href="#RFC5322">IETF RFC 5322</a>, in that the sequence
+&#x3c;CRLF&#x3e;&#x3c;WSP&#x3e; found anywhere in the content indicates a continued line
+and should be removed.</p>
+
+<p id="_eda4d763-f0f8-4554-319e-137b5b7c0ba0">Property names and parameter names are case-insensitive (e.g., the
+property name “fn” is the same as “FN” and “Fn”).  Parameter values
+<span class="keyword">MAY</span> be case-sensitive or case-insensitive, depending on their
+definition.  Parameter values that are not explicitly defined as
+being case-sensitive are case-insensitive.  Based on experience with
+vCard 3 interoperability, it is <span class="keyword">RECOMMENDED</span> that property and
+parameter names be upper-case on output.</p>
+
+<p id="_d4268817-6ec8-808a-83c1-3ce24e7451e2">The group construct is used to group related properties together.
+The group name is a syntactic convention used to indicate that all
+property names prefaced with the same group name <span class="keyword">SHOULD</span> be grouped
+together when displayed by an application.  It has no other
+significance.  Implementations that do not understand or support
+grouping <span class="keyword">MAY</span> simply strip off any text before a “.” to the left of
+the type name and present the types and values as normal.</p>
+
+<p id="_755898b3-d6fb-8318-ef4b-128a3c4f6f8b">Property cardinalities are indicated using the following notation,
+which is based on ABNF (see <a href="#RFC5234">IETF RFC 5234, Section 3.6</a>):</p>
+
+<p class="TableTitle" style="text-align:center;">Table 1</p><table id="_4418350d-4e9b-c424-711d-01f1e859dcb5" class="MsoISOTable" style="border-width:1px;border-spacing:0;"><thead><tr><th style="font-weight:bold;text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Cardinality</th><th style="font-weight:bold;text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.5pt;" scope="col">Meaning</th></tr></thead><tbody><tr><td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">1</td><td style="text-align:left;vertical-align:top;border-top:solid windowtext 1.5pt;border-bottom:solid windowtext 1.0pt;">Exactly one instance per vCard <span class="keyword">MUST</span> be present.</td></tr><tr><td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.0pt;">*1</td><td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.0pt;">Exactly one instance per vCard <span class="keyword">MAY</span> be present.</td></tr><tr><td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.0pt;">1*</td><td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.0pt;">One or more instances per vCard <span class="keyword">MUST</span> be present.</td></tr><tr><td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;">*</td><td style="text-align:left;vertical-align:top;border-top:none;border-bottom:solid windowtext 1.5pt;">One or more instances per vCard <span class="keyword">MAY</span> be present.</td></tr></tbody></table>
+
+<p id="_ff147ac6-9cd2-93b7-6d4b-ecfccc699eec">Properties defined in a vCard instance may have multiple values
+depending on the property cardinality.  The general rule for encoding
+multi-valued properties is to simply create a new content line for
+each value (including the property name).  However, it should be
+noted that some value types support encoding multiple values in a
+single content line by separating the values with a comma “,”.  This
+approach has been taken for several of the content types defined
+below (date, time, integer, float).</p>
+</div><div id="section3_4"><h2 id="_d3c02ed0-1bd8-463c-bc30-a4d1fd3438bf">4.5.  Property Value Escaping</h2>
+
+<p id="_b7f73da6-efde-5f79-c8d5-a53954687e7a">Some properties may contain one or more values delimited by a COMMA
+character (U+002C).  Therefore, a COMMA character in a value <span class="keyword">MUST</span> be
+escaped with a BACKSLASH character (U+005C), even for properties that
+don’t allow multiple instances (for consistency).</p>
+
+<p id="_e97ee60b-fa1a-bcfa-377e-6480399751d9">Some properties (e.g., N and ADR) comprise multiple fields delimited
+by a SEMICOLON character (U+003B).  Therefore, a SEMICOLON in a field
+of such a “compound” property <span class="keyword">MUST</span> be escaped with a BACKSLASH
+character.  SEMICOLON characters in non-compound properties <span class="keyword">MAY</span> be
+escaped.  On input, an escaped SEMICOLON character is never a field
+separator.  An unescaped SEMICOLON character may be a field
+separator, depending on the property in which it appears.</p>
+
+<p id="_dff5facd-c110-3ee0-fbe5-8dab7b13c71c">Furthermore, some fields of compound properties may contain a list of
+values delimited by a COMMA character.  Therefore, a COMMA character
+in one of a field’s values <span class="keyword">MUST</span> be escaped with a BACKSLASH
+character, even for fields that don’t allow multiple values (for
+consistency).  Compound properties allowing multiple instances <span class="keyword">MUST NOT</span>
+be encoded in a single content line.</p>
+
+<p id="_9ac41899-c80b-359e-1984-6db06cc7105c">Finally, BACKSLASH characters in values <span class="keyword">MUST</span> be escaped with a
+BACKSLASH character.  NEWLINE (U+000A) characters in values <span class="keyword">MUST</span> be
+encoded by two characters: a BACKSLASH followed by either an ‘n’
+(U+006E) or an ‘N’ (U+004E).</p>
+
+<p id="_efad9066-25e9-f4de-eb43-5ae5a5fd9f56">In all other cases, escaping <span class="keyword">MUST NOT</span> be used.</p>
+</div></div><br /><div id="appendixA" class="Section3"><h1 class="Annex" id="_3c5d17a0-3021-4f78-88ea-84e3549bb8a7"><b>Annex A</b><br />(normative)<br /><b>Differences from RFCs 2425 and 2426</b></h1><p id="_36840ab2-3eb4-b056-8410-03f8f009e75c">This appendix contains a high-level overview of the major changes
+that have been made in the vCard specification from <a href="#RFC2425">[RFC2425]</a> and
+<a href="#RFC2426">[RFC2426]</a>.  It is incomplete, as it only lists the most important changes.</p><div id="appendixA_1"><h2 id="_52112e00-e3ea-4ec3-9795-b7444a990b6d">A.1.  New Structure</h2>
+
+<ul id="_ee6daad9-4177-cfc1-2db2-0d6548446213"><li><p id="_3a1ebb18-05b9-1e7d-293d-989761050369"><a href="#RFC2425">[RFC2425]</a> and <a href="#RFC2426">[RFC2426]</a> have been merged.</p>
+</li>
+<li><p id="_da7c7ded-8d55-3c3d-04e2-82f63c809703">vCard is now not only a MIME type but a stand-alone format.</p>
+</li>
+<li><p id="_33cd125f-d67e-7cc3-bc6c-8739116c0469">A proper MIME type registration form has been included.</p>
+</li>
+<li><p id="_80aabd2a-10ea-42f3-e233-c34b26ab0d1e">UTF-8 is now the only possible character set.</p>
+</li>
+<li><p id="_8f361ca9-ea47-8756-5a58-f442edae6a87">New vCard elements can be registered from IANA.</p>
+</li>
+</ul>
+</div><div id="appendixA_2"><h2 id="_c25eca6d-793e-47a6-a79f-ba56f6ac8f02">A.2.  Removed Features</h2>
+
+<ul id="_e425d313-cffa-c3c2-75c2-22d64da32658"><li><p id="_afa07721-525e-6ac1-6adb-887d96acba22">The CONTEXT and CHARSET parameters are no more.</p>
+</li>
+<li><p id="_95a37343-e5c9-27cb-a90a-0b13f82f89b2">The NAME, MAILER, LABEL, and CLASS properties are no more.</p>
+</li>
+<li><p id="_1a661b21-a8f8-0007-a581-df26192212ce">The “intl”, “dom”, “postal”, and “parcel” TYPE parameter values
+for the ADR property have been removed.</p>
+</li>
+<li><p id="_482518b9-15a8-bcfe-aa1a-b4d4ef42c2ca">In-line vCards (such as the value of the AGENT property) are no
+longer supported.</p>
+</li>
+</ul>
+</div><div id="appendixA_3"><h2 id="_ddbc911c-7235-46fe-bfd4-a034fed4fdd3">A.3.  New Properties and Parameters</h2>
+
+<ul id="_9b6750c4-9830-fa3d-f73e-555d938954e3"><li><p id="_ff17d26a-7c36-bcdb-2b6b-f8553b8462ff">The KIND, GENDER, LANG, ANNIVERSARY, XML, and CLIENTPIDMAP
+properties have been added.</p>
+</li>
+<li><p id="_7f632b7d-051f-5f54-d73a-24f23886e49a"><a href="#RFC2739">IETF RFC 2739</a>, which defines the FBURL, CALADRURI, CAPURI, and CALURI
+properties, has been merged in.</p>
+</li>
+<li><p id="_01a06937-89a9-91e3-88ad-00c5b0322388"><a href="#RFC4770">[RFC4770]</a>, which defines the IMPP property, has been merged in.</p>
+</li>
+<li><p id="_66574348-a3e8-f966-f531-e54a788bf505">The “work” and “home” TYPE parameter values are now applicable to
+many more properties.</p>
+</li>
+<li><p id="_93a9b63c-27d1-58b0-93b6-5be5c858a7a5">The “pref” value of the TYPE parameter is now a parameter of its
+own, with a positive integer value indicating the level of
+preference.</p>
+</li>
+<li><p id="_4c38c2d8-acce-7fca-81e9-4bf56e1fc1b4">The ALTID and PID parameters have been added.</p>
+</li>
+<li><p id="_e517a74e-28f5-f79d-6120-901b36418db2">The MEDIATYPE parameter has been added and replaces the TYPE
+parameter when it was used for indicating the media type of the
+property’s content.</p>
+</li>
+</ul>
+</div></div></main><script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { preferredFont: "STIX" },
+    asciimath2jax: { delimiters: [['(#(', ')#)']] }
+ });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=MML_HTMLorMML-full" async="async"></script>
+  <script>
+    $("#toc").on('click', 'li', function(e) {
+    $(this).parent().find('li.toc-active').removeClass('toc-active');
+    $(this).addClass('toc-active');
+});
+  </script>
+
+  <script>
+  //TOC toggle animation
+$('#toggle').on('click', function(){
+    if( $('nav').is(':visible') ) {
+        $('nav').animate({ 'left': '-353px' }, 'slow', function(){
+            $('nav').hide();
+        });
+        $('body').animate({ 'margin-left': '0' }, 'slow');
+    }
+    else {
+        $('nav').show();
+        $('nav').animate({ 'left': '0px' }, 'slow');
+        $('body').animate({ 'margin-left': '298px' }, 'slow');
+    }
+});
+</script>
+
+<script>
+    // Scroll to top button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+    </script>
+
+<script>
+/*
+  $(document).ready(function() {
+	  $('[id^=toc]').each(function ()
+	  {
+	     var currentToc = $(this);
+       var url = window.location.href;
+            currentToc.wrap("<a href='" + url + "#" + currentToc.attr("id") + "'></a>");
+	  });
+});
+*/
+</script>
+
+  <script>
+    document.querySelectorAll('*|svg a').forEach(function(item) {
+      var loc = item.getAttribute('href');
+      if (loc !== null && loc.startsWith('#')) {
+  item.setAttribute('href', location.pathname + loc);
+      }
+});
+  </script>
+
+
+<script>
+
+// jQuery Inline Footnotes v1.0.3
+// Copyright (c) 2011 Vesa Vänskä, released under the MIT License.
+
+// Generated by CoffeeScript 1.6.1
+(function() {
+
+  (function($) {
+    $.inlineFootnote = function(el, options) {
+      var _this = this;
+      this.el = $(el);
+      this.el.data("inlineFootnote", this);
+      this.initialize = function() {
+        this.options = $.extend({}, $.inlineFootnote.defaultOptions, options);
+        this.footnoteId = this.el.attr("href").match(/#(.*)/)[1];
+        if (this.footnoteId) {
+          this.el.mouseenter(this.openBox);
+          return $("body").mousemove(this.closeBox);
+        }
+      };
+      this.openBox = function(event) {
+        var footnoteContent, linkOffset;
+        if (!_this.box) {
+          footnoteContent = $("[id='" + _this.footnoteId + "']").children().filter(":not('" + _this.options.hideFromContent + "')");
+          linkOffset = _this.el.offset();
+          _this.box = $("<div />", {
+            id: _this.options.boxId,
+            html: footnoteContent.clone().find(_this.options.hideFromContent).remove().end(),
+            css: {
+              position: "absolute",
+              top: linkOffset.top,
+              left: linkOffset.left + _this.el.outerWidth()
+            }
+          }).appendTo("body");
+          return _this.positionBox();
+        }
+      };
+      this.closeBox = function(event) {
+        if (_this.box) {
+          if (_this.isHoveringFootnote(event)) {
+            clearTimeout(_this.closeTimeout);
+            return _this.closeTimeout = null;
+          } else {
+            if (!_this.closeTimeout) {
+              return _this.closeTimeout = setTimeout((function() {
+                _this.box.remove();
+                return _this.box = null;
+              }), _this.options.hideDelay);
+            }
+          }
+        }
+      };
+      this.isHoveringFootnote = function(event) {
+        return this.box.is(event.target) || $(event.target).closest(this.box).length > 0 || event.target === this.el[0];
+      };
+      this.positionBox = function() {
+        var boxHorizontalPadding, boxLeft, boxWidth, linkLeftOffset, windowWidth;
+        boxHorizontalPadding = parseInt(this.box.css("padding-left")) + parseInt(this.box.css("padding-right"));
+        linkLeftOffset = this.el.offset().left;
+        windowWidth = $(window).width();
+        if ((windowWidth / 2) > linkLeftOffset) {
+          boxLeft = linkLeftOffset + 20;
+          boxWidth = windowWidth - boxLeft - boxHorizontalPadding - this.options.boxMargin * 2;
+          if (boxWidth > this.options.maximumBoxWidth) {
+            boxWidth = this.options.maximumBoxWidth;
+          }
+        } else {
+          boxWidth = linkLeftOffset - boxHorizontalPadding - this.options.boxMargin * 2;
+          if (boxWidth > this.options.maximumBoxWidth) {
+            boxWidth = this.options.maximumBoxWidth;
+          }
+          boxLeft = linkLeftOffset - boxWidth - this.options.boxMargin * 2;
+        }
+        return this.box.css({
+          width: boxWidth,
+          left: boxLeft
+        });
+      };
+      return this.initialize();
+    };
+    $.inlineFootnote.defaultOptions = {
+      boxMargin: 20,
+      hideDelay: 200,
+      hideFromContent: "[rel=footnote]",
+      maximumBoxWidth: 500,
+      boxId: "footnote_box"
+    };
+    return $.fn.inlineFootnote = function(options) {
+      return this.each(function() {
+        return new $.inlineFootnote(this, options);
+      });
+    };
+  })(jQuery);
+
+}).call(this);
+</script>
+
+<script>
+      $(function() {
+        $("[rel=footnote]").inlineFootnote();
+        });
+</script>
+  <script>
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+//
+// AnchorJS - v4.2.2 - 2020-04-20
+// https://www.bryanbraun.com/anchorjs/
+// Copyright (c) 2020 Bryan Braun; Licensed MIT
+//
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat
+!function(A,e){"use strict";"function"==typeof define&&define.amd?define([],e):"object"==typeof module&&module.exports?module.exports=e():(A.AnchorJS=e(),A.anchors=new A.AnchorJS)}(this,function(){"use strict";return function(A){function f(A){A.icon=A.hasOwnProperty("icon")?A.icon:"",A.visible=A.hasOwnProperty("visible")?A.visible:"hover",A.placement=A.hasOwnProperty("placement")?A.placement:"right",A.ariaLabel=A.hasOwnProperty("ariaLabel")?A.ariaLabel:"Anchor",A.class=A.hasOwnProperty("class")?A.class:"",A.base=A.hasOwnProperty("base")?A.base:"",A.truncate=A.hasOwnProperty("truncate")?Math.floor(A.truncate):64,A.titleText=A.hasOwnProperty("titleText")?A.titleText:""}function p(A){var e;if("string"==typeof A||A instanceof String)e=[].slice.call(document.querySelectorAll(A));else{if(!(Array.isArray(A)||A instanceof NodeList))throw new Error("The selector provided to AnchorJS was invalid.");e=[].slice.call(A)}return e}this.options=A||{},this.elements=[],f(this.options),this.isTouchDevice=function(){return!!("ontouchstart"in window||window.DocumentTouch&&document instanceof DocumentTouch)},this.add=function(A){var e,t,i,n,o,s,a,r,c,h,l,u,d=[];if(f(this.options),"touch"===(l=this.options.visible)&&(l=this.isTouchDevice()?"always":"hover"),0===(e=p(A=A||"h2, h3, h4, h5, h6")).length)return this;for(!function(){if(null!==document.head.querySelector("style.anchorjs"))return;var A,e=document.createElement("style");e.className="anchorjs",e.appendChild(document.createTextNode("")),void 0===(A=document.head.querySelector('[rel="stylesheet"],style'))?document.head.appendChild(e):document.head.insertBefore(e,A);e.sheet.insertRule(".anchorjs-link{opacity:0;text-decoration:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}",e.sheet.cssRules.length),e.sheet.insertRule(":hover>.anchorjs-link,.anchorjs-link:focus{opacity:1}",e.sheet.cssRules.length),e.sheet.insertRule("[data-anchorjs-icon]::after{content:attr(data-anchorjs-icon)}",e.sheet.cssRules.length),e.sheet.insertRule('@font-face{font-family:anchorjs-icons;src:url(data:n/a;base64,AAEAAAALAIAAAwAwT1MvMg8yG2cAAAE4AAAAYGNtYXDp3gC3AAABpAAAAExnYXNwAAAAEAAAA9wAAAAIZ2x5ZlQCcfwAAAH4AAABCGhlYWQHFvHyAAAAvAAAADZoaGVhBnACFwAAAPQAAAAkaG10eASAADEAAAGYAAAADGxvY2EACACEAAAB8AAAAAhtYXhwAAYAVwAAARgAAAAgbmFtZQGOH9cAAAMAAAAAunBvc3QAAwAAAAADvAAAACAAAQAAAAEAAHzE2p9fDzz1AAkEAAAAAADRecUWAAAAANQA6R8AAAAAAoACwAAAAAgAAgAAAAAAAAABAAADwP/AAAACgAAA/9MCrQABAAAAAAAAAAAAAAAAAAAAAwABAAAAAwBVAAIAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAMCQAGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAQAAg//0DwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAAIAAAACgAAxAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEADAAAAAIAAgAAgAAACDpy//9//8AAAAg6cv//f///+EWNwADAAEAAAAAAAAAAAAAAAAACACEAAEAAAAAAAAAAAAAAAAxAAACAAQARAKAAsAAKwBUAAABIiYnJjQ3NzY2MzIWFxYUBwcGIicmNDc3NjQnJiYjIgYHBwYUFxYUBwYGIwciJicmNDc3NjIXFhQHBwYUFxYWMzI2Nzc2NCcmNDc2MhcWFAcHBgYjARQGDAUtLXoWOR8fORYtLTgKGwoKCjgaGg0gEhIgDXoaGgkJBQwHdR85Fi0tOAobCgoKOBoaDSASEiANehoaCQkKGwotLXoWOR8BMwUFLYEuehYXFxYugC44CQkKGwo4GkoaDQ0NDXoaShoKGwoFBe8XFi6ALjgJCQobCjgaShoNDQ0NehpKGgobCgoKLYEuehYXAAAADACWAAEAAAAAAAEACAAAAAEAAAAAAAIAAwAIAAEAAAAAAAMACAAAAAEAAAAAAAQACAAAAAEAAAAAAAUAAQALAAEAAAAAAAYACAAAAAMAAQQJAAEAEAAMAAMAAQQJAAIABgAcAAMAAQQJAAMAEAAMAAMAAQQJAAQAEAAMAAMAAQQJAAUAAgAiAAMAAQQJAAYAEAAMYW5jaG9yanM0MDBAAGEAbgBjAGgAbwByAGoAcwA0ADAAMABAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAH//wAP) format("truetype")}',e.sheet.cssRules.length)}(),t=document.querySelectorAll("[id]"),i=[].map.call(t,function(A){return A.id}),o=0;o<e.length;o++)if(this.hasAnchorJSLink(e[o]))d.push(o);else{if(e[o].hasAttribute("id"))n=e[o].getAttribute("id");else if(e[o].hasAttribute("data-anchor-id"))n=e[o].getAttribute("data-anchor-id");else{for(c=r=this.urlify(e[o].textContent),a=0;void 0!==s&&(c=r+"-"+a),a+=1,-1!==(s=i.indexOf(c)););s=void 0,i.push(c),e[o].setAttribute("id",c),n=c}(h=document.createElement("a")).className="anchorjs-link "+this.options.class,h.setAttribute("aria-label",this.options.ariaLabel),h.setAttribute("data-anchorjs-icon",this.options.icon),this.options.titleText&&(h.title=this.options.titleText),u=document.querySelector("base")?window.location.pathname+window.location.search:"",u=this.options.base||u,h.href=u+"#"+n,"always"===l&&(h.style.opacity="1"),""===this.options.icon&&(h.style.font="1em/1 anchorjs-icons","left"===this.options.placement&&(h.style.lineHeight="inherit")),"left"===this.options.placement?(h.style.position="absolute",h.style.marginLeft="-1em",h.style.paddingRight="0.5em",e[o].insertBefore(h,e[o].firstChild)):(h.style.paddingLeft="0.375em",e[o].appendChild(h))}for(o=0;o<d.length;o++)e.splice(d[o]-o,1);return this.elements=this.elements.concat(e),this},this.remove=function(A){for(var e,t,i=p(A),n=0;n<i.length;n++)(t=i[n].querySelector(".anchorjs-link"))&&(-1!==(e=this.elements.indexOf(i[n]))&&this.elements.splice(e,1),i[n].removeChild(t));return this},this.removeAll=function(){this.remove(this.elements)},this.urlify=function(A){return this.options.truncate||f(this.options),A.trim().replace(/\'/gi,"").replace(/[& +$,:;=?@"#{}|^~[`%!'<>\]\.\/\(\)\*\\\n\t\b\v]/g,"-").replace(/-{2,}/g,"-").substring(0,this.options.truncate).replace(/^-+|-+$/gm,"").toLowerCase()},this.hasAnchorJSLink=function(A){var e=A.firstChild&&-1<(" "+A.firstChild.className+" ").indexOf(" anchorjs-link "),t=A.lastChild&&-1<(" "+A.lastChild.className+" ").indexOf(" anchorjs-link ");return e||t||!1}}});
+// @license-end
+  </script>
+    <script>
+  anchors.options = {
+  placement: 'left'
+};
+anchors.add('h1, h2, h3, h4');
+</script>
+
+</body></html>

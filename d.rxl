@@ -1,0 +1,11 @@
+<bibdata type="standard">
+<title language="en" format="text/plain">vCard Format Specification</title>
+<uri>http://www.viagenie.ca</uri><docidentifier type="NIST CAXIF">NIST CAXIF RFC 6350</docidentifier><docnumber>RFC 6350</docnumber><contributor><role type="author"/><organization>
+<name>My Organization name</name>
+<abbreviation>NIST CAXIF</abbreviation></organization></contributor><contributor><role type="author"/><person>
+<name><completename>Simon Perreault</completename></name>
+<phone>+1 418 656 9254</phone><email>simon.perreault@viagenie.ca</email></person></contributor><contributor><role type="publisher"/><organization>
+<name>My Organization name</name>
+<abbreviation>NIST CAXIF</abbreviation></organization></contributor><version><revision-date>2011-08-01</revision-date></version><language>en</language><script>Latn</script><status><stage>published</stage></status><copyright><from>2024</from><owner><organization>
+<name>My Organization name</name>
+<abbreviation>NIST CAXIF</abbreviation></organization></owner></copyright><ext><doctype>standard</doctype></ext></bibdata>
