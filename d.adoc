@@ -1,0 +1,369 @@
+= vCard Format Specification
+Simon Perreault <simon.perreault@viagenie.ca>
+:customize: caxif_metanorma.yml
+:title: vCard Format Specification
+:docnumber: RFC 6350
+:doctype: standard
+:abbrev: vCard
+:obsoletes: 2425, 2426, 4770
+:updates: 2739
+:name: 6350
+:revdate: 2011-08-01
+:submission-type: IETF
+:status: published
+:intended-series: full-standard 6350
+:fullname: Simon Perreault
+:lastname: Perreault
+:forename_initials: S.
+:organization: Viagenie
+:email: simon.perreault@viagenie.ca
+:street: 2875 Laurier, suite D2-630
+:region: Quebec, QC
+:code: G1V 2M2
+:country: Canada
+:phone: +1 418 656 9254
+:uri: http://www.viagenie.ca
+:link: urn:issn:2070-1721 item
+:rfcedstyle: yes
+:ipr: pre5378Trust200902
+:inline-definition-lists: true
+:comments: yes
+
+.Foreword
+TBD
+
+[[section1]]
+== Introduction
+
+=== General
+
+Electronic address books have become ubiquitous.  Their increased
+presence on portable, connected devices as well as the diversity of
+platforms that exchange contact data call for a standard.  This memo
+defines the vCard format, which allows the capture and exchange of
+information normally stored within an address book or directory
+application.
+
+A high-level overview of the differences from <<RFC2425>> and <<RFC2426>> can
+be found in <<appendixA>>.
+
+=== Conventions
+
+The key words "[keyword]#MUST#", "[keyword]#MUST NOT#", "[keyword]#REQUIRED#", "[keyword]#SHALL#", "[keyword]#SHALL NOT#",
+"[keyword]#SHOULD#", "[keyword]#SHOULD NOT#", "[keyword]#RECOMMENDED#", "[keyword]#NOT RECOMMENDED#", "[keyword]#MAY#", and
+"[keyword]#OPTIONAL#" in this document are to be interpreted as described in
+<<RFC2119>>.
+
+== Scope
+This document defines the vCard data format for representing and
+exchanging a variety of information about individuals and other
+entities (e.g., formatted and structured name and delivery addresses,
+email address, multiple telephone numbers, photograph, logo, audio
+clips, etc.).  This document obsoletes <<RFC2425>>, <<RFC2426>>, and <<RFC4770>>, and
+updates <<RFC2739>>.
+
+== Terms and Definitions
+
+[[section3]]
+== vCard Format Specification
+
+=== General
+
+The text/vcard MIME content type (hereafter known as "vCard"; see
+<<section10_1>>) contains contact information, typically pertaining to a
+single contact or group of contacts.  The content consists of one or
+more lines in the format given below.
+
+[[section3_1]]
+=== Charset
+
+The charset (see <<RFC3536>> for internationalization terminology) for
+vCard is UTF-8 as defined in <<RFC3629>>.  There is no way to override
+this.  It is invalid to specify a value other than "UTF-8" in the
+"charset" MIME parameter (see <<section10_1>>).
+
+[[section3_2]]
+===  Line Delimiting and Folding
+
+Individual lines within vCard are delimited by the <<RFC5322>> line
+break, which is a CRLF sequence (U+000D followed by U+000A).  Long
+logical lines of text can be split into a multiple-physical-line
+representation using the following folding technique.  Content lines
+[keyword]#SHOULD# be folded to a maximum width of 75 octets, excluding the line
+break.  Multi-octet characters [keyword]#MUST# remain contiguous.  The rationale
+for this folding process can be found in <<RFC5322,section 2.1.1>>.
+
+A logical line [keyword]#MAY# be continued on the next physical line anywhere
+between two characters by inserting a CRLF immediately followed by a
+single white space character (space (U+0020) or horizontal tab
+(U+0009)).  The folded line [keyword]#MUST# contain at least one character.  Any
+sequence of CRLF followed immediately by a single white space
+character is ignored (removed) when processing the content type.  For
+example, the line:
+
+....
+  NOTE:This is a long description that exists on a long line.
+....
+
+can be represented as:
+
+....
+  NOTE:This is a long description
+    that exists on a long line.
+....
+
+It could also be represented as:
+
+....
+  NOTE:This is a long descrip
+   tion that exists o
+   n a long line.
+....
+
+The process of moving from this folded multiple-line representation
+of a property definition to its single-line representation is called
+unfolding.  Unfolding is accomplished by regarding CRLF immediately
+followed by a white space character (namely, HTAB (U+0009) or SPACE
+(U+0020)) as equivalent to no characters at all (i.e., the CRLF and
+single white space character are removed).
+
+Note: It is possible for very simple implementations to generate
+improperly folded lines in the middle of a UTF-8 multi-octet
+sequence.  For this reason, implementations [keyword]#SHOULD# unfold lines in
+such a way as to properly restore the original sequence.
+
+Note: Unfolding is done differently than in <<RFC5322>>.  Unfolding
+in <<RFC5322>> only removes the CRLF, not the space following it.
+
+Folding is done after any content encoding of a type value.
+Unfolding is done before any decoding of a type value in a content
+line.
+
+[[section3_3]]
+=== ABNF Format Definition
+
+The following ABNF uses the notation of <<RFC5234>>, which also defines
+CRLF, WSP, DQUOTE, VCHAR, ALPHA, and DIGIT.
+
+[source,abnf]
+----
+vcard-entity = 1*vcard
+
+vcard = "BEGIN:VCARD" CRLF
+        "VERSION:4.0" CRLF
+        1*contentline
+        "END:VCARD" CRLF
+  ; A vCard object MUST include the VERSION and FN properties.
+  ; VERSION MUST come immediately after BEGIN:VCARD.
+
+contentline = [group "."] name *(";" param) ":" value CRLF
+  ; When parsing a content line, folded lines must first
+  ; be unfolded according to the unfolding procedure
+  ; described in Section 3.2.
+  ; When generating a content line, lines longer than 75
+  ; characters SHOULD be folded according to the folding
+  ; procedure described in Section 3.2.
+
+group = 1*(ALPHA / DIGIT / "-")
+name  = "SOURCE" / "KIND" / "FN" / "N" / "NICKNAME"
+      / "PHOTO" / "BDAY" / "ANNIVERSARY" / "GENDER" / "ADR" / "TEL"
+      / "EMAIL" / "IMPP" / "LANG" / "TZ" / "GEO" / "TITLE" / "ROLE"
+      / "LOGO" / "ORG" / "MEMBER" / "RELATED" / "CATEGORIES"
+      / "NOTE" / "PRODID" / "REV" / "SOUND" / "UID" / "CLIENTPIDMAP"
+      / "URL" / "KEY" / "FBURL" / "CALADRURI" / "CALURI" / "XML"
+      / iana-token / x-name
+  ; Parsing of the param and value is based on the "name" as
+  ; defined in ABNF sections below.
+  ; Group and name are case-insensitive.
+
+iana-token = 1*(ALPHA / DIGIT / "-")
+  ; identifier registered with IANA
+
+x-name = "x-" 1*(ALPHA / DIGIT / "-")
+  ; Names that begin with "x-" or "X-" are
+  ; reserved for experimental use, not intended for released
+  ; products, or for use in bilateral agreements.
+
+param = language-param / value-param / pref-param / pid-param
+      / type-param / geo-parameter / tz-parameter / sort-as-param
+      / calscale-param / any-param
+  ; Allowed parameters depend on property name.
+
+param-value = *SAFE-CHAR / DQUOTE *QSAFE-CHAR DQUOTE
+
+any-param  = (iana-token / x-name) "=" param-value *("," param-value)
+
+NON-ASCII = UTF8-2 / UTF8-3 / UTF8-4
+  ; UTF8-{2,3,4} are defined in IETF RFC 3629
+
+QSAFE-CHAR = WSP / "!" / %x23-7E / NON-ASCII
+  ; Any character except CTLs, DQUOTE
+
+SAFE-CHAR = WSP / "!" / %x23-39 / %x3C-7E / NON-ASCII
+  ; Any character except CTLs, DQUOTE, ";", ":"
+
+VALUE-CHAR = WSP / VCHAR / NON-ASCII
+  ; Any textual character
+----
+
+A line that begins with a white space character is a continuation of
+the previous line, as described in <<section3_2>>.  The white space
+character and immediately preceeding CRLF should be discarded when
+reconstructing the original line.  Note that this line-folding
+convention differs from that found in <<RFC5322>>, in that the sequence
+<CRLF><WSP> found anywhere in the content indicates a continued line
+and should be removed.
+
+Property names and parameter names are case-insensitive (e.g., the
+property name "fn" is the same as "FN" and "Fn").  Parameter values
+[keyword]#MAY# be case-sensitive or case-insensitive, depending on their
+definition.  Parameter values that are not explicitly defined as
+being case-sensitive are case-insensitive.  Based on experience with
+vCard 3 interoperability, it is [keyword]#RECOMMENDED# that property and
+parameter names be upper-case on output.
+
+The group construct is used to group related properties together.
+The group name is a syntactic convention used to indicate that all
+property names prefaced with the same group name [keyword]#SHOULD# be grouped
+together when displayed by an application.  It has no other
+significance.  Implementations that do not understand or support
+grouping [keyword]#MAY# simply strip off any text before a "." to the left of
+the type name and present the types and values as normal.
+
+Property cardinalities are indicated using the following notation,
+which is based on ABNF (see <<RFC5234,section 3.6>>):
+
+|===
+| Cardinality | Meaning
+
+|      1      | Exactly one instance per vCard [keyword]#MUST# be present.
+|      *1     | Exactly one instance per vCard [keyword]#MAY# be present.
+|      1*     | One or more instances per vCard [keyword]#MUST# be present.
+|      *      | One or more instances per vCard [keyword]#MAY# be present.
+|===
+
+Properties defined in a vCard instance may have multiple values
+depending on the property cardinality.  The general rule for encoding
+multi-valued properties is to simply create a new content line for
+each value (including the property name).  However, it should be
+noted that some value types support encoding multiple values in a
+single content line by separating the values with a comma ",".  This
+approach has been taken for several of the content types defined
+below (date, time, integer, float).
+
+[[section3_4]]
+===  Property Value Escaping
+
+Some properties may contain one or more values delimited by a COMMA
+character (U+002C).  Therefore, a COMMA character in a value [keyword]#MUST# be
+escaped with a BACKSLASH character (U+005C), even for properties that
+don't allow multiple instances (for consistency).
+
+Some properties (e.g., N and ADR) comprise multiple fields delimited
+by a SEMICOLON character (U+003B).  Therefore, a SEMICOLON in a field
+of such a "compound" property [keyword]#MUST# be escaped with a BACKSLASH
+character.  SEMICOLON characters in non-compound properties [keyword]#MAY# be
+escaped.  On input, an escaped SEMICOLON character is never a field
+separator.  An unescaped SEMICOLON character may be a field
+separator, depending on the property in which it appears.
+
+Furthermore, some fields of compound properties may contain a list of
+values delimited by a COMMA character.  Therefore, a COMMA character
+in one of a field's values [keyword]#MUST# be escaped with a BACKSLASH
+character, even for fields that don't allow multiple values (for
+consistency).  Compound properties allowing multiple instances [keyword]#MUST NOT#
+be encoded in a single content line.
+
+Finally, BACKSLASH characters in values [keyword]#MUST# be escaped with a
+BACKSLASH character.  NEWLINE (U+000A) characters in values [keyword]#MUST# be
+encoded by two characters: a BACKSLASH followed by either an 'n'
+(U+006E) or an 'N' (U+004E).
+
+In all other cases, escaping [keyword]#MUST NOT# be used.
+
+[[appendixA]]
+[appendix]
+== Differences from RFCs 2425 and 2426
+
+This appendix contains a high-level overview of the major changes
+that have been made in the vCard specification from <<RFC2425>> and
+<<RFC2426>>.  It is incomplete, as it only lists the most important changes.
+
+[[appendixA_1]]
+===  New Structure
+
+*  <<RFC2425>> and <<RFC2426>> have been merged.
+
+*  vCard is now not only a MIME type but a stand-alone format.
+
+*  A proper MIME type registration form has been included.
+
+*  UTF-8 is now the only possible character set.
+
+*  New vCard elements can be registered from IANA.
+
+[[appendixA_2]]
+===  Removed Features
+
+*  The CONTEXT and CHARSET parameters are no more.
+
+*  The NAME, MAILER, LABEL, and CLASS properties are no more.
+
+*  The "intl", "dom", "postal", and "parcel" TYPE parameter values
+   for the ADR property have been removed.
+
+*  In-line vCards (such as the value of the AGENT property) are no
+   longer supported.
+
+[[appendixA_3]]
+===  New Properties and Parameters
+
+*  The KIND, GENDER, LANG, ANNIVERSARY, XML, and CLIENTPIDMAP
+   properties have been added.
+
+*  <<RFC2739>>, which defines the FBURL, CALADRURI, CAPURI, and CALURI
+   properties, has been merged in.
+
+*  <<RFC4770>>, which defines the IMPP property, has been merged in.
+
+*  The "work" and "home" TYPE parameter values are now applicable to
+   many more properties.
+
+*  The "pref" value of the TYPE parameter is now a parameter of its
+   own, with a positive integer value indicating the level of
+   preference.
+
+*  The ALTID and PID parameters have been added.
+
+*  The MEDIATYPE parameter has been added and replaces the TYPE
+   parameter when it was used for indicating the media type of the
+   property's content.
+
+
+
+[bibliography]
+==  Normative References
+
+* [[[CCITT.X520.1988,CCITT Recommendation X520]]], International Telephone and Telegraph Consultative Committee, _Information Technology - Open Systems Interconnection - The Directory: Selected Attribute Types._ 1988.
+* [[[IEEE754,IEEE 754]]], _Standard for Binary Floating-Point Arithmetic._ 2008.
+* [[[ISO8601.2000,ISO 8601:2000]]], _Data elements and interchange formats -- Information interchange -- Representation of dates and times._
+* [[[ISO8601,ISO 8601:2004]]], _Data elements and interchange formats -- Information interchange -- Representation of dates and times._
+* [[[RFC2045,RFC 2045]]], N. Freed, N. Borenstein. _Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies._ 1996. https://www.rfc-editor.org/info/rfc2045
+* [[[RFC2046,RFC 2046]]], N. Freed, N. Borenstein. _Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types._ 1996. https://www.rfc-editor.org/info/rfc2046
+* [[[RFC2119,RFC 2119]]], S. Bradner. _Key words for use in RFCs to Indicate Requirement Levels._ 1997. https://www.rfc-editor.org/info/rfc2119
+* [[[RFC2739,RFC 2739]]], T. Small, D. Hennessy, F. Dawson. _Calendar Attributes for vCard and LDAP._ 2000. https://www.rfc-editor.org/info/rfc2739
+* [[[RFC3629,RFC 3629]]], F. Yergeau. _UTF-8, a transformation format of ISO 10646._ 2003. https://www.rfc-editor.org/info/rfc3629
+* [[[RFC3966,RFC 3966]]], H. Schulzrinne. _The tel URI for Telephone Numbers._ 2004. https://www.rfc-editor.org/info/rfc3966
+* [[[RFC3986,RFC 3986]]], T. Berners-Lee, R. Fielding, L. Masinter. _Uniform Resource Identifier (URI): Generic Syntax._ 2005. https://www.rfc-editor.org/info/rfc3986
+* [[[RFC4122,RFC 4122]]], P. Leach, M. Mealling, R. Salz. _A Universally Unique IDentifier (UUID) URN Namespace._ 2005. https://www.rfc-editor.org/info/rfc4122
+* [[[RFC4288,RFC 4288]]], N. Freed, J. Klensin. _Media Type Specifications and Registration Procedures._ 2005. https://www.rfc-editor.org/info/rfc4288
+* [[[RFC5234,RFC 5234]]], D. Crocker, P. Overell. _Augmented BNF for Syntax Specifications: ABNF._ 2008. https://www.rfc-editor.org/info/rfc5234
+* [[[RFC5322,RFC 5322]]], P. Resnick. _Internet Message Format._ 2008. https://www.rfc-editor.org/info/rfc5322
+* [[[RFC5545,RFC 5545]]], B. Desruisseaux. _Internet Calendaring and Scheduling Core Object Specification (iCalendar)._ 2009. https://www.rfc-editor.org/info/rfc5545
+* [[[RFC5546,RFC 5546]]], C. Daboo. _iCalendar Transport-Independent Interoperability Protocol (iTIP)._ 2009. https://www.rfc-editor.org/info/rfc5546
+* [[[RFC5646,RFC 5646]]], A. Phillips, M. Davis. _Tags for Identifying Languages._ 2009. https://www.rfc-editor.org/info/rfc5646
+* [[[RFC5870,RFC 5870]]], A. Mayrhofer, C. Soanring. _A Uniform Resource Identifier for Geographic Locations ('geo' URI)._ 2010. https://www.rfc-editor.org/info/rfc5870
+* [[[RFC6351,RFC 6351]]], S. Perreault. _xCard: vCard XML Representation._ 2011. https://www.rfc-editor.org/info/rfc6351
+* [[[W3C.REC-xml-20081126,W3C REC-xml-20081126]]], E. Maler, Yergeau, F., Sperberg-McQueen, C., Paoli, J., T. Bray. _Extensible Markup Language (XML) 1.0 (Fifth Edition)._ 2008. http://www.w3.org/TR/2008/REC-xml-20081126
+* [[[xfn,XFN]]], T. Celik, M. Mullenweg, E. Meyer. _XFN 1.1 profile._ http://gmpg.org/xfn/11
+
