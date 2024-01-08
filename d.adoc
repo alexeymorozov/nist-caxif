@@ -1,6 +1,6 @@
 = vCard Format Specification
 Simon Perreault <simon.perreault@viagenie.ca>
-:customize: caxif_metanorma.yml
+# :customize: caxif_metanorma.yml
 :title: vCard Format Specification
 :docnumber: RFC 6350
 :doctype: standard
